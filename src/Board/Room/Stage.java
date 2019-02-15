@@ -11,7 +11,7 @@ public class Stage extends Room {
 	private int takes;
 	private Scene scene;
 
-	Stage(String name, ArrayList<Room> connections, Scene scene, int takes, ArrayList<Role> extras) {
+	public Stage(String name, ArrayList<Room> connections, Scene scene, int takes, ArrayList<Role> extras) {
 		super(name, connections);
 		this.takes = takes;
 		this.scene = scene;

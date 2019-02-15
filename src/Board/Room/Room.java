@@ -16,6 +16,7 @@ public abstract class Room {
 	public Room(String name, ArrayList<Room> connections) {
 		this.name = name;
 		this.connections = connections;
+		this.players = new ArrayList<Player>();
 	}
 
 	public String getName() {
