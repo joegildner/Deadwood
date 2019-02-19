@@ -26,6 +26,7 @@ public abstract class Role implements Comparable<Role>{
 	}
 	
 	public boolean fill(Player p) {
+		
 		if (p.getRank() >= this.rank && this.player == null) {
 			this.player = p;
 			return true;
@@ -36,7 +37,7 @@ public abstract class Role implements Comparable<Role>{
 	
 	@Override
 	public String toString() {
-		return this.name + ", " + this.line;
+		return this.name + ", \"" + this.line + "\"";
 	}
 	
 	public int getRank() {
@@ -45,6 +46,10 @@ public abstract class Role implements Comparable<Role>{
 	
 	public Player getPlayer() {
 		return this.player;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	@Override

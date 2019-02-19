@@ -8,8 +8,8 @@ public class Office extends Room {
 	private static final ArrayList<Integer> upgradeCr = new ArrayList<Integer>(Arrays.asList(5,10,15,20,25));
 	
 	
-	public Office(ArrayList<Room> connections) {
-		super("Casting Office", connections);
+	public Office() {
+		super("Office");
 	}
 	
 	@Override

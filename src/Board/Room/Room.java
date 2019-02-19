@@ -13,6 +13,12 @@ public abstract class Room {
 	protected ArrayList<Room> connections;
 	protected ArrayList<Player> players;	
 	
+	public Room(String name) {
+		this.name = name;
+		this.connections = new ArrayList<>();
+		this.players = new ArrayList<>();
+	}
+	
 	public Room(String name, ArrayList<Room> connections) {
 		this.name = name;
 		this.connections = connections;
@@ -31,6 +37,19 @@ public abstract class Room {
 		return this.connections;
 	}
 	
+	public void addConnection(Room r) {
+		if (r != null)
+			connections.add(r);
+	}
+	
+	public void addRole(Role r) {
+		return;
+	}
+	
+	public void setTakes(int t) {
+		return;
+	}
+	
 	
 	public boolean vacate(Player p, Room r) {
 		if (this.isAdjacent(r))
@@ -41,8 +60,8 @@ public abstract class Room {
 	}
 	
 	public boolean isAdjacent(Room r) {
-		//return connections.contains(r);
-		return true;
+		return connections.contains(r);
+		//return true;
 	}
 	
 	public boolean enter(Player p) {
@@ -50,6 +69,10 @@ public abstract class Room {
 	}
 	
 	public void newDay() {
+		for (Player p : players) {
+			p.newDay();
+		}
+		
 		players.clear();
 	}
 	
@@ -90,7 +113,7 @@ public abstract class Room {
 		return null;
 	}
 	
-	public Role commit(Player p, Role r) {
+	public Role commit(Player p, String role) {
 		return null;
 	}
 	

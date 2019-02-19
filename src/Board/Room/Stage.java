@@ -10,13 +10,19 @@ public class Stage extends Room {
 	private ArrayList<Role> extras; 
 	private int takes;
 	private Scene scene;
+	
+	public Stage(String name) {
+		super(name);
+		this.takes = -1;
+		this.scene = null;
+		this.extras = new ArrayList<>();
+	}
 
 	public Stage(String name, ArrayList<Room> connections, Scene scene, int takes, ArrayList<Role> extras) {
 		super(name, connections);
 		this.takes = takes;
 		this.scene = scene;
 		this.extras = extras;
-		this.players = new ArrayList<>();
 	}
 	
 	@Override
@@ -30,7 +36,8 @@ public class Stage extends Room {
 		this.scene.cashout();
 		for (Role r : extras) {
 			Player p = r.getPlayer();
-			p.addEarnings(r.getRank());
+			if (p != null)
+				p.addEarnings(r.getRank());
 		}
 	}
 	
@@ -48,6 +55,11 @@ public class Stage extends Room {
 	}
 	
 	@Override
+	public void addRole(Role r) {
+		extras.add(r);
+	}
+	
+	@Override
 	public Scene getScene() {
 		return this.scene;
 	}
@@ -57,6 +69,11 @@ public class Stage extends Room {
 		Scene temp = this.scene;
 		this.scene = scene;
 		return temp;
+	}
+	
+	@Override
+	public void setTakes(int t) {
+		this.takes = t;
 	}
 
 	@Override
@@ -68,9 +85,18 @@ public class Stage extends Room {
 	}
 	
 	@Override
-	public Role commit(Player p, Role r) {
-		if (this.getRoles().contains(r)) {
-			return (r.fill(p)) ? r : null;
+	public Role commit(Player p, String role) {
+		Role chosen = null;
+		
+		for (Role r : this.getRoles()) {
+			if (role.equalsIgnoreCase(r.getName())) {
+				chosen = r;
+				break;
+			}
+		}
+		
+		if (chosen != null) {
+			return (chosen.fill(p)) ? chosen : null;
 		}
 		return null;
 	}
@@ -78,8 +104,12 @@ public class Stage extends Room {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder(this.getName());
-		sb.append("shooting ");
-		sb.append(this.scene);
+		if (this.isComplete()) {
+			sb.append(" wrapped");
+		} else {
+			sb.append(" shooting ");
+			sb.append(this.scene);
+		}
 		return sb.toString();
 		
 	}

@@ -60,21 +60,31 @@ public class Player {
 	public int getRank() {
 		return this.rank;
 	}
+	
+	public int getScore() {
+		return this.money + this.credits + (this.rank * 5);
+	}
 
 	public void rehearse() {
 		if (this.curRole != null)
 			this.tokens++;
 	}
 	
-	public void commit(Role role) {
-		this.curRole = curRoom.commit(this, role);
+	public void commit(String role) {
+		 Role r = curRoom.commit(this, role);
+		 if (r != null) {
+			 this.curRole = r;
+		 } else {
+			 System.out.print("Could not commit to role \"" + role + "\" ");
+			 System.out.println("in room " + curRoom.getName());
+		 }
 	}
 	
 	public void upgrade(String payType, int amount) {
 		int newRank = curRoom.getNewRank(payType, amount);
 
 		if (newRank < 1) {
-			System.out.println("Upgrade not possible in " + this.curRoom);
+			System.out.println("Upgrade not possible in " + this.curRoom.getName());
 		} else {
 
 			if (payType.contains("$")) {
@@ -108,7 +118,11 @@ public class Player {
 			return this.curRoom.enter(this);	
 		}
 		
+		this.curRole = null;
+		
 		return false;
 	}
+
+	
 
 }

@@ -2,6 +2,7 @@ package Board;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Board.Role.Lead;
 import Board.Role.Role;
 
 public class Scene {
@@ -10,25 +11,35 @@ public class Scene {
 	private String name;
 	private String desc;
 	private int budget;
+	private int number;
 	
-	public Scene(String name, String desc, ArrayList<Role> roles, int budget) {
-		this.leads = roles;
+	public Scene(String name, String desc, int budget, int number) {
+		this.leads = new ArrayList<>();
+		this.name = name;
+		this.desc = desc;
+		this.budget = budget;
+		this.number = number;
 	}
 	
 	public void cashout() {
 		Die d = new Die(6);
 		int[] roll = d.roll(this.budget);
-		Collections.sort(leads);
+		Collections.sort(leads, Collections.reverseOrder());
 		int curRole = 0;
 		
 		for (int i = 0; i < roll.length; i++) {
-			if (curRole == leads.size()+1) {
+			if (curRole >= leads.size()-1) {
 				curRole = 0;
 			}
 			Player p = leads.get(curRole).getPlayer();
-			p.addEarnings(roll[i]);
+			if (p != null)
+				p.addEarnings(roll[i]);
 			curRole++;
 		}
+	}
+	
+	public void addRole(Lead l) {
+		leads.add(l);
 	}
 	
 	public ArrayList<Role> getLeads() {
@@ -45,7 +56,7 @@ public class Scene {
 	
 	@Override
 	public String toString() {
-		return this.name;
+		return this.name + " scene " + this.number;
 	}
 
 }

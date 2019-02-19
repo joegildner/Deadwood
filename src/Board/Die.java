@@ -7,6 +7,10 @@ public class Die {
 	private int sides;
 	private Random rand;
 	
+	public Die() {
+		this(6);
+	}
+	
 	public Die(int sides) {
 		this.sides = sides;
 		this.rand = new Random(System.currentTimeMillis());
@@ -24,6 +28,6 @@ public class Die {
 	}
 	
 	public int roll() {
-		return this.rand.nextInt(sides) + 1;
+		return roll(1)[0];
 	}
 }
