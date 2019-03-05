@@ -18,6 +18,7 @@ import Board.Room.Room;
 import Board.Room.Stage;
 import Board.Room.Trailer;
 
+//TODO: add image and sizes to parser
 
 public class XmlParser {
 	private String file;
