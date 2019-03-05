@@ -6,6 +6,7 @@ import Board.Room.Room;
 public class Player {
 	
 	private String name;
+	private String[] imgFiles;
 	private int rank;
 	private int money;
 	private int credits;
@@ -15,8 +16,9 @@ public class Player {
 	private Trailer trailer;
 	
 	
-	public Player(String name, Trailer trailer) {
+	public Player(String name, Trailer trailer, String[] imgFiles) {
 		this.name = name;
+		this.imgFiles = imgFiles;
 		this.rank = 1;
 		this.money = 0;
 		this.credits = 0;

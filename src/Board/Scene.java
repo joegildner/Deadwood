@@ -10,15 +10,17 @@ public class Scene {
 	private ArrayList<Role> leads;
 	private String name;
 	private String desc;
+	private String imgFile;
 	private int budget;
 	private int number;
 	
-	public Scene(String name, String desc, int budget, int number) {
+	public Scene(String name, String desc, int budget, int number, String imgFile) {
 		this.leads = new ArrayList<>();
 		this.name = name;
 		this.desc = desc;
 		this.budget = budget;
 		this.number = number;
+		this.imgFile = imgFile;
 	}
 	
 	public void cashout() {

@@ -270,11 +270,26 @@ public class Deadwood {
 
 	public static void initPlayers(int players) {
 		order = new LinkedList<Player>();
-		String[] names = { "blue", "cyan", "green", "orange", "pink", "red", "purple", "yellow" };
+		String[] names = { "blue", "cyan", "green", "orange", "pink", "red", "violet", "yellow" };
+
+		char[] imgs = {'b','c','g','p','r','v','y'};
+
+		for (Character c : imgs) {
+			for (int i = 1; i < 7; i++) {
+
+			}
+		}
+
 		int loc = 0;
 
 		for (int i = 0; i < players; i++) {
-			Player p = new Player(names[loc], t);
+			char c = imgs[loc];
+			String[] imgFiles = new String[6];
+			for (int j = 0; j < imgFiles.length; j++) {
+				imgFiles[j] = String.format("%c%d.png", c,j+1);
+
+			}
+			Player p = new Player(names[loc], t, imgFiles);
 			order.add(p);
 			loc++;
 		}

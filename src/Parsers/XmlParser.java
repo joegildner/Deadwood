@@ -78,7 +78,7 @@ public class XmlParser {
 
 		try {
 			File inputFile = new File(filename);
-			System.out.println(inputFile.getCanonicalPath());
+			//System.out.println(inputFile.getCanonicalPath());
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -102,8 +102,8 @@ public class XmlParser {
 			return null;
 
 		Element doc = parse_doc(this.file);
-		for_each(doc.getElementsByTagName("set"), (Element card) -> buildBoard(card));
-		for_each(doc.getElementsByTagName("set"), (Element card) -> buildStage(card));
+		for_each(doc.getElementsByTagName("set"), (Element card) -> buildBoard(card)); // initilize all rooms
+		for_each(doc.getElementsByTagName("set"), (Element card) -> buildStage(card)); // find all stages
 		for_each(doc.getElementsByTagName("set"), (Element card) -> addNeighbors(card));
 		for_each(doc.getElementsByTagName("office"), (Element card) -> addNeighbors(card));
 		for_each(doc.getElementsByTagName("trailer"), (Element card) -> addNeighbors(card));
@@ -148,10 +148,13 @@ public class XmlParser {
 		String desc = card.getElementsByTagName("scene").item(0).getTextContent();
 		int num = Integer.parseInt(
 				((Element) card.getElementsByTagName("scene").item(0)).getAttribute("number"));
-		
-		Scene s = new Scene(name, desc, budget, num);
+
+		String imgName = card.getAttribute("img");
+
+
+		Scene s = new Scene(name, desc, budget, num, imgName);
 		for_each(card.getElementsByTagName("part"),
-				(Element part) -> buildRole(part, s));
+				(Element part) -> buildLead(part, s));
 		
 	
 		this.scenes.push(s);
@@ -195,7 +198,7 @@ public class XmlParser {
 			return;
 		
 		for_each(card.getElementsByTagName("part"),
-				(Element part) -> buildRole(part, r));
+				(Element part) -> buildExtra(part, r));
 		
 		r.setTakes(card.getElementsByTagName("take").getLength());
 	}
@@ -209,16 +212,21 @@ public class XmlParser {
 		return null;
 	}
 	
-	private void buildRole(Element part, Room r) {
+	private void buildExtra(Element part, Room r) {
 		String name = part.getAttribute("name");
 		int rank = Integer.parseInt(part.getAttribute("level"));
 		String line = part.getElementsByTagName("line").item(0).getTextContent();
+		//int[] area = new int[4];
+
+
+
+
 		
 		Extra e = new Extra(name, line, rank);
 		r.addRole(e);
 	}
 	
-	private void buildRole(Element part, Scene s) {
+	private void buildLead(Element part, Scene s) {
 		String name = part.getAttribute("name");
 		int rank = Integer.parseInt(part.getAttribute("level"));
 		String line = part.getElementsByTagName("line").item(0).getTextContent();
