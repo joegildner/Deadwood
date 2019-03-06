@@ -286,7 +286,7 @@ public class Deadwood {
 			char c = imgs[loc];
 			String[] imgFiles = new String[6];
 			for (int j = 0; j < imgFiles.length; j++) {
-				imgFiles[j] = String.format("%c%d.png", c,j+1);
+				imgFiles[j] = String.format("../Deadwood/resources/dice/%c%d.png", c,j+1);
 
 			}
 			Player p = new Player(names[loc], t, imgFiles);

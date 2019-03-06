@@ -32,12 +32,13 @@ public class Stage extends Room {
 	
 	@Override
 	protected void wrap() {
-		//TODO
 		this.scene.cashout();
 		for (Role r : extras) {
 			Player p = r.getPlayer();
-			if (p != null)
+			if (p != null) {
 				p.addEarnings(r.getRank());
+				//p.clearRole();
+			}
 		}
 	}
 	
@@ -46,6 +47,7 @@ public class Stage extends Room {
 		if (roll >= this.scene.getBudget()) {
 			this.takes--;
 			if (this.takes == 0) {
+				System.out.println("Scene Wrapped!");
 				wrap();
 			}
 			return true;

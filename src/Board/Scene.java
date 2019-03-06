@@ -34,8 +34,10 @@ public class Scene {
 				curRole = 0;
 			}
 			Player p = leads.get(curRole).getPlayer();
-			if (p != null)
+			if (p != null) {
 				p.addEarnings(roll[i]);
+				//p.clearRole();
+			}
 			curRole++;
 		}
 	}

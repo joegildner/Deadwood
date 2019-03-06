@@ -6,14 +6,16 @@ public abstract class Role implements Comparable<Role>{
 	private String line;
 	private int rank;
 	private Player player;
+	private int[] area;
 	protected int[] reward;
 	protected int pay;
 	
 	
-	public Role(String name, String line, int rank) {
+	public Role(String name, String line, int rank, int[] area) {
 		this.name = name;
 		this.line = line;
 		this.rank = rank;
+		this.area = area;
 		this.player = null;
 	}
 	

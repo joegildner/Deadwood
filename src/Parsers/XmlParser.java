@@ -149,12 +149,12 @@ public class XmlParser {
 		int num = Integer.parseInt(
 				((Element) card.getElementsByTagName("scene").item(0)).getAttribute("number"));
 
-		String imgName = card.getAttribute("img");
+		String imgName = "..Deadwood/resources/cards/" + card.getAttribute("img");
 
 
 		Scene s = new Scene(name, desc, budget, num, imgName);
 		for_each(card.getElementsByTagName("part"),
-				(Element part) -> buildLead(part, s));
+				(Element part) -> buildRole(part, s, null));
 		
 	
 		this.scenes.push(s);
@@ -198,7 +198,7 @@ public class XmlParser {
 			return;
 		
 		for_each(card.getElementsByTagName("part"),
-				(Element part) -> buildExtra(part, r));
+				(Element part) -> buildRole(part, null, r));
 		
 		r.setTakes(card.getElementsByTagName("take").getLength());
 	}
@@ -211,29 +211,30 @@ public class XmlParser {
 		
 		return null;
 	}
-	
-	private void buildExtra(Element part, Room r) {
+
+
+	private void buildRole(Element part, Scene s, Room r) {
 		String name = part.getAttribute("name");
 		int rank = Integer.parseInt(part.getAttribute("level"));
 		String line = part.getElementsByTagName("line").item(0).getTextContent();
-		//int[] area = new int[4];
+		int[] area = new int[4];
 
+		NodeList nlArea = part.getElementsByTagName("area");
+		Node nArea = nlArea.item(0);
+		Element eArea = (Element) nArea;
 
+		area[0] = Integer.parseInt(eArea.getAttribute("x"));
+		area[0] = Integer.parseInt(eArea.getAttribute("y"));
+		area[0] = Integer.parseInt(eArea.getAttribute("h"));
+		area[0] = Integer.parseInt(eArea.getAttribute("w"));
 
-
-		
-		Extra e = new Extra(name, line, rank);
-		r.addRole(e);
+		if (s == null) {
+			Extra e = new Extra(name, line, rank, area);
+			r.addRole(e);
+		} else if (r == null){
+			Lead l = new Lead(name, line, rank, area);
+			s.addRole(l);
+		}
 	}
-	
-	private void buildLead(Element part, Scene s) {
-		String name = part.getAttribute("name");
-		int rank = Integer.parseInt(part.getAttribute("level"));
-		String line = part.getElementsByTagName("line").item(0).getTextContent();
-		
-		Lead l = new Lead(name, line, rank);
-		s.addRole(l);
-	}
-	
 
 }

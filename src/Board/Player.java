@@ -68,18 +68,30 @@ public class Player {
 	}
 
 	public void rehearse() {
-		if (this.curRole != null)
+		if (this.curRole != null) {
 			this.tokens++;
+			System.out.println("You have " + tokens + " tokens.");
+		} else {
+			System.out.println("You are not working a role.");
+		}
 	}
 	
 	public void commit(String role) {
-		 Role r = curRoom.commit(this, role);
-		 if (r != null) {
-			 this.curRole = r;
+		 if (role != null) {
+			 Role r = curRoom.commit(this, role);
+			 if (r != null) {
+				 this.curRole = r;
+			 } else {
+				 System.out.print("Could not commit to role \"" + role + "\" ");
+				 System.out.println("in room " + curRoom.getName());
+			 }
 		 } else {
-			 System.out.print("Could not commit to role \"" + role + "\" ");
-			 System.out.println("in room " + curRoom.getName());
+		 	System.out.println("You must enter a role to work");
 		 }
+	}
+
+	private void clearRole() {
+		this.curRole = null;
 	}
 	
 	public void upgrade(String payType, int amount) {
@@ -107,10 +119,20 @@ public class Player {
 	}
 	
 	public void act(int roll) {
-		if (this.curRoom.take(roll + this.tokens)) {
-			this.addReward(this.curRole.getReward());
+		if (this.curRole == null){
+			System.out.println("You are not working a role.");
+		} else if (!this.curRoom.isComplete()) {
+			if (this.curRoom.take(roll + this.tokens)) {
+				this.addReward(this.curRole.getReward());
+				System.out.println("Success!");
+				if (this.curRoom.isComplete())
+					this.clearRole();
+			} else {
+				this.money += this.curRole.getPay();
+				System.out.println("Failure :(");
+			}
 		} else {
-			this.money += this.curRole.getPay();
+			System.out.println("This scene has already wrapped!");
 		}
 	}
 	
