@@ -75,7 +75,6 @@ public class Deadwood {
 
 
 		discard = new Stack<Scene>();
-		//shuffle();
 
 		Collections.shuffle(scenes);
 
@@ -153,39 +152,6 @@ public class Deadwood {
 		}
 
 		return count;
-	}
-
-	// Shuffles the scene deck by swapping the positions of two random
-	// Scene cards 1000 times
-	public static void shuffle() {
-		
-		// make sure discard pile is returned to scene deck
-		while (!discard.isEmpty()) {
-			scenes.push(discard.pop());
-		}
-			
-		
-		int size = scenes.size();
-		Scene[] deck = new Scene[size];
-		scenes.copyInto(deck);
-
-		Scene temp;
-		int loc1;
-		int loc2;
-
-		for (int i = 0; i < 1000; i++) {
-			loc1 = (int) (Math.random() * (size - 1));
-			loc2 = (int) (Math.random() * (size - 1));
-			temp = deck[loc1];
-			deck[loc1] = deck[loc2];
-			deck[loc2] = temp;
-		}
-
-		scenes.clear();
-
-		for (int i = 0; i < deck.length; i++)
-			scenes.push(deck[i]);
-
 	}
 
 	public static void takeTurn(Player p) {
