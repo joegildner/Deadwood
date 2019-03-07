@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Office extends Room {
 
-	private static final ArrayList<Integer> upgradeMoney = new ArrayList<Integer>(Arrays.asList(4,10,18,28,40));
-	private static final ArrayList<Integer> upgradeCr = new ArrayList<Integer>(Arrays.asList(5,10,15,20,25));
+	private static final ArrayList<Integer> upgradeMoney = new ArrayList<>(Arrays.asList(4,10,18,28,40));
+	private static final ArrayList<Integer> upgradeCr = new ArrayList<>(Arrays.asList(5,10,15,20,25));
 	
 	
 	public Office() {

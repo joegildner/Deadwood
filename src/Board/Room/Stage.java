@@ -37,7 +37,6 @@ public class Stage extends Room {
 			Player p = r.getPlayer();
 			if (p != null) {
 				p.addEarnings(r.getRank());
-				//p.clearRole();
 			}
 		}
 	}

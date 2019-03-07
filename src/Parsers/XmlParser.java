@@ -224,9 +224,9 @@ public class XmlParser {
 		Element eArea = (Element) nArea;
 
 		area[0] = Integer.parseInt(eArea.getAttribute("x"));
-		area[0] = Integer.parseInt(eArea.getAttribute("y"));
-		area[0] = Integer.parseInt(eArea.getAttribute("h"));
-		area[0] = Integer.parseInt(eArea.getAttribute("w"));
+		area[1] = Integer.parseInt(eArea.getAttribute("y"));
+		area[2] = Integer.parseInt(eArea.getAttribute("h"));
+		area[3] = Integer.parseInt(eArea.getAttribute("w"));
 
 		if (s == null) {
 			Extra e = new Extra(name, line, rank, area);

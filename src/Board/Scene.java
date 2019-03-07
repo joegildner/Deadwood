@@ -1,5 +1,6 @@
 package Board;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import Board.Role.Lead;
@@ -26,17 +27,20 @@ public class Scene {
 	public void cashout() {
 		Die d = new Die(6);
 		int[] roll = d.roll(this.budget);
+
+		Arrays.sort(roll);
+
 		Collections.sort(leads, Collections.reverseOrder());
 		int curRole = 0;
 		
-		for (int i = 0; i < roll.length; i++) {
-			if (curRole >= leads.size()-1) {
+		for (int i = roll.length - 1; i > -1; i--) {
+			if (curRole > leads.size()-1) {
 				curRole = 0;
 			}
 			Player p = leads.get(curRole).getPlayer();
 			if (p != null) {
+				System.out.println(p + " earns $" + roll[i]);
 				p.addEarnings(roll[i]);
-				//p.clearRole();
 			}
 			curRole++;
 		}

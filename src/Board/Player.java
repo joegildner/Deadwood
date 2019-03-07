@@ -81,10 +81,12 @@ public class Player {
 			 Role r = curRoom.commit(this, role);
 			 if (r != null) {
 				 this.curRole = r;
+				 System.out.print("Committed to \"" + role + "\" ");
+
 			 } else {
 				 System.out.print("Could not commit to role \"" + role + "\" ");
-				 System.out.println("in room " + curRoom.getName());
 			 }
+			 System.out.println("in room " + curRoom.getName());
 		 } else {
 		 	System.out.println("You must enter a role to work");
 		 }
@@ -101,12 +103,20 @@ public class Player {
 			System.out.println("Upgrade not possible in " + this.curRoom.getName());
 		} else {
 
-			if (payType.contains("$")) {
+			boolean upgrade = false;
+			if (payType.contains("$") && amount <= this.money) {
 				this.money -= amount;
-			} else {
+				upgrade = true;
+			} else if (amount <= this.credits){
 				this.credits -= amount;
+				upgrade = true;
+			} else {
+				System.out.println("Not enough currency to perform upgrade");
 			}
-			this.rank = newRank;
+			if (upgrade) {
+				this.rank = newRank;
+				System.out.println("New rank: " + this.rank);
+			}
 		}
 	}
 	

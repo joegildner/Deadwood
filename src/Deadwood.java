@@ -213,6 +213,8 @@ public class Deadwood {
 				p.rehearse();
 			} else if (firstWord.equalsIgnoreCase("act")) {
 				p.act(die.roll());
+			} else if (firstWord.equalsIgnoreCase("add")) {
+				p.addEarnings(Integer.parseInt(options));
 			} else {
 				System.out.println("Invalid choice. Try again.");
 			}
