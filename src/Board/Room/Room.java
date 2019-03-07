@@ -11,7 +11,8 @@ public abstract class Room {
 
 	protected String name;
 	protected ArrayList<Room> connections;
-	protected ArrayList<Player> players;	
+	protected ArrayList<Player> players;
+	protected int[] area;
 	
 	public Room(String name) {
 		this.name = name;
@@ -48,6 +49,14 @@ public abstract class Room {
 	
 	public void setTakes(int t) {
 		return;
+	}
+
+	public void addTake(Take t) {
+		return;
+	}
+
+	public void setArea(int[] area) {
+		this.area = area;
 	}
 	
 	

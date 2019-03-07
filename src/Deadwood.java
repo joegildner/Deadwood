@@ -2,12 +2,7 @@ import Board.*;
 import Board.Room.*;
 import Parsers.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Deadwood {
 
@@ -80,7 +75,9 @@ public class Deadwood {
 
 
 		discard = new Stack<Scene>();
-		shuffle();
+		//shuffle();
+
+		Collections.shuffle(scenes);
 
 		die = new Die();
 
@@ -275,12 +272,6 @@ public class Deadwood {
 		String[] names = { "blue", "cyan", "green", "orange", "pink", "red", "violet", "yellow" };
 
 		char[] imgs = {'b','c','g','p','r','v','y'};
-
-		for (Character c : imgs) {
-			for (int i = 1; i < 7; i++) {
-
-			}
-		}
 
 		int loc = 0;
 

@@ -9,12 +9,14 @@ public class Stage extends Room {
 	
 	private ArrayList<Role> extras; 
 	private int takes;
+	private ArrayList<Take> takeArea;
 	private Scene scene;
 	
 	public Stage(String name) {
 		super(name);
 		this.takes = -1;
 		this.scene = null;
+		this.takeArea = new ArrayList<>();
 		this.extras = new ArrayList<>();
 	}
 
@@ -54,7 +56,11 @@ public class Stage extends Room {
 		
 		return false;
 	}
-	
+	@Override
+	public void addTake(Take t) {
+		takeArea.add(t);
+	}
+
 	@Override
 	public void addRole(Role r) {
 		extras.add(r);

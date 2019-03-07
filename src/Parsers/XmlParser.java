@@ -2,6 +2,8 @@ package Parsers;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
+import Board.Room.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -13,10 +15,6 @@ import java.util.Stack;
 
 import Board.Scene;
 import Board.Role.*;
-import Board.Room.Office;
-import Board.Room.Room;
-import Board.Room.Stage;
-import Board.Room.Trailer;
 
 //TODO: add image and sizes to parser
 
@@ -181,6 +179,9 @@ public class XmlParser {
  
 	private void addNeighbors(Element card) {
 		Room r = findRoom(getName(card));
+
+		int[] area = getArea(card);
+		r.setArea(area);
 		
 		
 		for_each(card.getElementsByTagName("neighbor"), 
@@ -188,7 +189,6 @@ public class XmlParser {
 					Room n = findRoom(getName(neighbor));
 					if (n != null && !r.isAdjacent(n))
 						r.addConnection(n);
-					
 				});
 	}
 	
@@ -196,11 +196,18 @@ public class XmlParser {
 		Room r = findRoom(getName(card));
 		if (!(r instanceof Stage))
 			return;
-		
+
 		for_each(card.getElementsByTagName("part"),
 				(Element part) -> buildRole(part, null, r));
 		
 		r.setTakes(card.getElementsByTagName("take").getLength());
+
+		for_each(card.getElementsByTagName("take"),
+				(Element take) -> {
+					int[] area = getArea(take);
+					Take t = new Take(area);
+					r.addTake(t);
+				});
 	}
 	
 	private Room findRoom(String name) {
@@ -213,13 +220,9 @@ public class XmlParser {
 	}
 
 
-	private void buildRole(Element part, Scene s, Room r) {
-		String name = part.getAttribute("name");
-		int rank = Integer.parseInt(part.getAttribute("level"));
-		String line = part.getElementsByTagName("line").item(0).getTextContent();
+	private int[] getArea(Element e) {
 		int[] area = new int[4];
-
-		NodeList nlArea = part.getElementsByTagName("area");
+		NodeList nlArea = e.getElementsByTagName("area");
 		Node nArea = nlArea.item(0);
 		Element eArea = (Element) nArea;
 
@@ -227,6 +230,14 @@ public class XmlParser {
 		area[1] = Integer.parseInt(eArea.getAttribute("y"));
 		area[2] = Integer.parseInt(eArea.getAttribute("h"));
 		area[3] = Integer.parseInt(eArea.getAttribute("w"));
+		return area;
+	}
+
+	private void buildRole(Element part, Scene s, Room r) {
+		String name = part.getAttribute("name");
+		int rank = Integer.parseInt(part.getAttribute("level"));
+		String line = part.getElementsByTagName("line").item(0).getTextContent();
+		int[] area = getArea(part);
 
 		if (s == null) {
 			Extra e = new Extra(name, line, rank, area);

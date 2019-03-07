@@ -45,6 +45,10 @@ public abstract class Role implements Comparable<Role>{
 	public int getRank() {
 		return this.rank;
 	}
+
+	public int[] getArea() {
+		return this.area;
+	}
 	
 	public Player getPlayer() {
 		return this.player;
