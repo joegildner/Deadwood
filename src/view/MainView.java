@@ -23,7 +23,7 @@ public class MainView extends JPanel {
         board = new JLabel();
         add(board,0);
         board.setBounds(0,0,1200, 900);
-        ImageIcon boardIcon = new ImageIcon("../Deadwood/resources/board.jpg");
+        ImageIcon boardIcon = new ImageIcon("../Deadwood/src/resources/board.jpg");
         board.setIcon(boardIcon);
 
         setVisible(true);
