@@ -6,7 +6,11 @@ package view;
 //import java.util.LinkedList;
 //import java.util.List;
 //import java.awt.event.*;
+import model.Board.Room.Room;
+import model.Board.Room.Stage;
+
 import javax.swing.*;
+import java.util.ArrayList;
 //import javax.imageio.*;
 //import java.io.*;
 //import java.awt.image.*;
@@ -18,7 +22,6 @@ public class MainView extends JPanel {
 
     public MainView() {
         super(null);
-        setSize(1200, 900);
 
         board = new JLabel();
         add(board,0);
@@ -28,6 +31,7 @@ public class MainView extends JPanel {
 
         setVisible(true);
         setFocusable(true);
+
 
     }
 
