@@ -190,6 +190,28 @@ public class XmlParser {
 					if (n != null && !r.isAdjacent(n))
 						r.addConnection(n);
 				});
+
+		if (r instanceof Office) {
+			buildOffice(card, r);
+		}
+	}
+
+	private void buildOffice(Element card, Room r) {
+		for_each(card.getElementsByTagName("upgrade"),
+				(Element upgrade) -> {
+					Upgrade u = buildUpgrade(upgrade);
+					r.addUpgrade(u);
+				});
+	}
+
+	private Upgrade buildUpgrade(Element upgrade) {
+		int level = Integer.parseInt(upgrade.getAttribute("level"));
+		String currency = upgrade.getAttribute("currency");
+		int amt = Integer.parseInt(upgrade.getAttribute("amt"));
+		int[] area = getArea(upgrade);
+
+		Upgrade u = new Upgrade(area, level, amt, currency);
+		return u;
 	}
 	
 	private void buildStage(Element card) {

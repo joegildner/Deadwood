@@ -6,10 +6,12 @@ public class Office extends Room {
 
 	private static final ArrayList<Integer> upgradeMoney = new ArrayList<>(Arrays.asList(4,10,18,28,40));
 	private static final ArrayList<Integer> upgradeCr = new ArrayList<>(Arrays.asList(5,10,15,20,25));
+	private ArrayList<Upgrade> upgrades;
 	
 	
 	public Office() {
 		super("Office");
+		this.upgrades = new ArrayList<>();
 	}
 	
 	@Override
@@ -19,6 +21,16 @@ public class Office extends Room {
 		}
 		
 		return upgradeCr.indexOf(amount) +2;
+	}
+
+	@Override
+	public void addUpgrade(Upgrade u) {
+		upgrades.add(u);
+	}
+
+	@Override
+	public ArrayList<Upgrade> getUpgrades() {
+		return this.upgrades;
 	}
 		
 	

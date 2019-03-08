@@ -58,6 +58,14 @@ public abstract class Room {
 	public void setArea(int[] area) {
 		this.area = area;
 	}
+
+	public void addUpgrade(Upgrade u) {
+		return;
+	}
+
+	public ArrayList<Upgrade> getUpgrades() {
+		return null;
+	}
 	
 	
 	public boolean vacate(Player p, Room r) {
