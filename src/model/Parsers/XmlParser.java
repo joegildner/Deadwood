@@ -1,9 +1,9 @@
-package Parsers;
+package model.Parsers;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
-import Board.Room.*;
+import model.Board.Room.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import Board.Scene;
-import Board.Role.*;
+import model.Board.Scene;
+import model.Board.Role.*;
 
 //TODO: add image and sizes to parser
 
@@ -147,7 +147,7 @@ public class XmlParser {
 		int num = Integer.parseInt(
 				((Element) card.getElementsByTagName("scene").item(0)).getAttribute("number"));
 
-		String imgName = "..Deadwood/resources/cards/" + card.getAttribute("img");
+		String imgName = "..Deadwood/src/resources/cards/" + card.getAttribute("img");
 
 
 		Scene s = new Scene(name, desc, budget, num, imgName);

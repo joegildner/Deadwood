@@ -1,4 +1,4 @@
-package Board.Room;
+package model.Board.Room;
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -1,6 +1,8 @@
-import Board.*;
-import Board.Room.*;
-import Parsers.*;
+package model;
+
+import model.Board.*;
+import model.Board.Room.*;
+import model.Parsers.*;
 
 import java.util.*;
 
@@ -49,7 +51,7 @@ public class Deadwood {
 
 	private static void initBoard() {
 		
-		XmlParser roomParser = new XmlParser("../Deadwood/resources/board.xml");
+		XmlParser roomParser = new XmlParser("../Deadwood/src/resources/board.xml");
 		board = roomParser.parseRooms();
 		
 		if (board == null) {
@@ -65,7 +67,7 @@ public class Deadwood {
 			}
 		}
 		
-		XmlParser sceneParser = new XmlParser("../Deadwood/resources/cards.xml");
+		XmlParser sceneParser = new XmlParser("../Deadwood/src/resources/cards.xml");
 		scenes = sceneParser.parseScenes();
 		if (scenes == null) {
 			System.out.println("Error reading cards.xml");
@@ -245,7 +247,7 @@ public class Deadwood {
 			char c = imgs[loc];
 			String[] imgFiles = new String[6];
 			for (int j = 0; j < imgFiles.length; j++) {
-				imgFiles[j] = String.format("../Deadwood/resources/dice/%c%d.png", c,j+1);
+				imgFiles[j] = String.format("../Deadwood/src/resources/dice/%c%d.png", c,j+1);
 
 			}
 			Player p = new Player(names[loc], t, imgFiles);

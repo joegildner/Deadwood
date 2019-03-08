@@ -1,7 +1,7 @@
-package Board;
-import Board.Role.Role;
-import Board.Room.Trailer;
-import Board.Room.Room;
+package model.Board;
+import model.Board.Role.Role;
+import model.Board.Room.Trailer;
+import model.Board.Room.Room;
 
 public class Player {
 	

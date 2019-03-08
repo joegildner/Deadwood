@@ -1,4 +1,4 @@
-package Board.Room;
+package model.Board.Room;
 
 public class Take {
 

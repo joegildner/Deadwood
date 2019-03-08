@@ -1,5 +1,5 @@
-package Board.Role;
-import Board.Player;
+package model.Board.Role;
+import model.Board.Player;
 
 public abstract class Role implements Comparable<Role>{
 	private String name;

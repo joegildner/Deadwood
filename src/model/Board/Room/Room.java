@@ -1,9 +1,9 @@
-package Board.Room;
+package model.Board.Room;
 import java.util.ArrayList;
 
-import Board.Player;
-import Board.Scene;
-import Board.Role.Role;
+import model.Board.Player;
+import model.Board.Scene;
+import model.Board.Role.Role;
 
 public abstract class Room {
 

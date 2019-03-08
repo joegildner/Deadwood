@@ -1,4 +1,4 @@
-package Board.Role;
+package model.Board.Role;
 public class Lead extends Role {
 	
 	public Lead(String name, String line, int rank, int[] area) {
