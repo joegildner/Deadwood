@@ -278,4 +278,8 @@ public class Deadwood {
         }
     }
 
+	public static ArrayList<Room> getBoard() {
+		return board;
+	}
 }
+

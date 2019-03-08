@@ -1,3 +1,4 @@
+import controller.MainController;
 import model.Deadwood;
 import view.MainView;
 import javax.swing.*;
@@ -5,10 +6,15 @@ import javax.swing.*;
 public class PlayDeadwood {
     private static JFrame gameFrame;
     private static MainView boardView;
-    private Deadwood deadwoodModel;
+    private static Deadwood dwModel;
+    private static MainController dwControl;
 
     public static void main(String[] args) {
+        int players = Integer.parseInt(args[0]);
+        dwModel = new Deadwood(players);
+
         initFrame();
+        initController();
 
     }
 
@@ -17,9 +23,13 @@ public class PlayDeadwood {
         gameFrame.setSize(1200, 900);
 
         boardView = new MainView();
-        gameFrame.getContentPane().add(boardView);
 
+        gameFrame.getContentPane().add(boardView);
         gameFrame.setVisible(true);
-        boardView.requestFocus();
+    }
+
+    public static void initController(){
+        dwControl = new MainController(dwModel.getBoard(),boardView);
+
     }
 }

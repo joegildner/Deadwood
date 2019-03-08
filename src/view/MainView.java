@@ -16,15 +16,15 @@ import java.util.ArrayList;
 //import java.awt.image.*;
 //import java.awt.Color;
 
-public class MainView extends JPanel {
+public class MainView extends JLayeredPane {
 
     private JLabel board;
 
     public MainView() {
-        super(null);
+        //super(null);
 
         board = new JLabel();
-        add(board,0);
+        add(board,new Integer(0));
         board.setBounds(0,0,1200, 900);
         ImageIcon boardIcon = new ImageIcon("../Deadwood/src/resources/board.jpg");
         board.setIcon(boardIcon);

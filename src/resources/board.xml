@@ -185,7 +185,7 @@
         <line>Looks like a storm's comin' in.</line>
       </part>p
       <part name="Mister Keach" level="3">
-        <area x="236" y="385" h="46" w="46" />
+        <area x="236" y="358" h="46" w="46" />
         <line>Howdy, stranger.</line>
       </part>
     </parts>
