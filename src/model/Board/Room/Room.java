@@ -133,16 +133,8 @@ public abstract class Room {
 	public Role commit(Player p, String role) {
 		return null;
 	}
-	
-	
-	
-	
-	
-	
 
-
-
-
-
-	
+	public int[] getArea() {
+		return area;
+	}
 }

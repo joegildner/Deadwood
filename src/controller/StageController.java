@@ -14,10 +14,8 @@ import java.util.ArrayList;
 public class StageController {
 
     private ArrayList<JButton> extras;
-    private int bCount;
 
     public StageController(Stage thisStage, MainView boardView){
-        bCount = 1;
         extras = new ArrayList<JButton>();
         for(Role extraRole : thisStage.getRoles()){
             if(extraRole instanceof Extra)

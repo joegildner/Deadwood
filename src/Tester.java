@@ -14,7 +14,7 @@ public class Tester {
         mainFrame.setTitle("Deadwood");
         mainFrame.setSize(1200, 900);
 
-        MainView mainView = new MainView();
+        MainView mainView = new MainView(null);
         mainFrame.getContentPane().add(mainView);
 
         mainFrame.addWindowListener(new WindowAdapter() {

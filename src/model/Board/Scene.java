@@ -67,4 +67,7 @@ public class Scene {
 		return this.name + " scene " + this.number;
 	}
 
+	public String getImgFile() {
+		return imgFile;
+	}
 }

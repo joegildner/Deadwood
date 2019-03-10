@@ -120,9 +120,9 @@ public class XmlParser {
 		return this.scenes;
 	}
 
-	private void buildBoard(Element card) {
+	private void buildBoard(Element room) {
 		Room r = null;
-		String name = getName(card);
+		String name = getName(room);
 		if (findRoom(name) == null) {
 			if (name.equals("office")) {
 				r = new Office();
@@ -133,7 +133,7 @@ public class XmlParser {
 			}
 			board.add(r);
 			
-			for_each(card.getElementsByTagName("neighbor"), 
+			for_each(room.getElementsByTagName("neighbor"),
 					(Element neighbor) -> buildBoard(neighbor));
 
 		}
@@ -147,7 +147,7 @@ public class XmlParser {
 		int num = Integer.parseInt(
 				((Element) card.getElementsByTagName("scene").item(0)).getAttribute("number"));
 
-		String imgName = "..Deadwood/src/resources/cards/" + card.getAttribute("img");
+		String imgName = "../Deadwood/src/resources/cards/" + card.getAttribute("img");
 
 
 		Scene s = new Scene(name, desc, budget, num, imgName);

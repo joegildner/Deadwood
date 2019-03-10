@@ -19,15 +19,23 @@ import java.util.ArrayList;
 public class MainView extends JLayeredPane {
 
     private JLabel board;
+    private ArrayList<SceneView> sceneViews;
 
-    public MainView() {
-        //super(null);
+
+    public MainView(ArrayList<Room> rooms) {
+        super();
 
         board = new JLabel();
         add(board,new Integer(0));
         board.setBounds(0,0,1200, 900);
         ImageIcon boardIcon = new ImageIcon("../Deadwood/src/resources/board.jpg");
         board.setIcon(boardIcon);
+
+        sceneViews = new ArrayList<>();
+        for(Room thisRoom : rooms){
+            if(thisRoom instanceof Stage)
+                sceneViews.add(new SceneView((Stage)thisRoom, this));
+        }
 
         setVisible(true);
         setFocusable(true);
