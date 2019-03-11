@@ -17,6 +17,18 @@ public class Upgrade {
         this.currency = currency;
     }
 
+    public int getLevel() {
+        return this.level;
+    }
+
+    public int getAmount() {
+        return this.amt;
+    }
+
+    public String getCurrency() {
+        return this.currency;
+    }
+
     public int[] getArea() {
         return this.area;
     }
@@ -25,7 +37,12 @@ public class Upgrade {
         return currency;
     }
 
+<<<<<<< HEAD
     public int getAmt() {
         return amt;
     }
+=======
+
+
+>>>>>>> fc77f3b7a75fa71ad00acd552d588c521cbd87ca
 }
