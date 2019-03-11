@@ -33,6 +33,10 @@ public class Player {
 		this.money += reward[0];
 		this.credits += reward[1];
 	}
+
+	public String getImgFile(int i) {
+		return imgFiles[i];
+	}
 	
 	public void addEarnings(int money) {
 		this.money += money;
@@ -95,23 +99,39 @@ public class Player {
 	private void clearRole() {
 		this.curRole = null;
 	}
-	
-	public void upgrade(String payType, int amount) {
-		int newRank = curRoom.getNewRank(payType, amount);
+
+	public void upgradeCr(int amount) {
+		int newRank = curRoom.getNewRankCr(amount);
 
 		if (newRank < 1) {
 			System.out.println("Upgrade not possible in " + this.curRoom.getName());
 		} else {
-
 			boolean upgrade = false;
-			if (payType.contains("$") && amount <= this.money) {
-				this.money -= amount;
-				upgrade = true;
-			} else if (amount <= this.credits){
+			if (amount <= this.credits) {
 				this.credits -= amount;
 				upgrade = true;
 			} else {
-				System.out.println("Not enough currency to perform upgrade");
+				System.out.println("Not enough money to perform upgrade");
+			}
+			if (upgrade) {
+				this.rank = newRank;
+				System.out.println("New rank: " + this.rank);
+			}
+		}
+	}
+
+	public void upgradeMoney(int amount) {
+		int newRank = curRoom.getNewRankMoney(amount);
+
+		if (newRank < 1) {
+			System.out.println("Upgrade not possible in " + this.curRoom.getName());
+		} else {
+			boolean upgrade = false;
+			if (amount <= this.money) {
+				this.money -= amount;
+				upgrade = true;
+			} else {
+				System.out.println("Not enough money to perform upgrade");
 			}
 			if (upgrade) {
 				this.rank = newRank;
@@ -147,14 +167,15 @@ public class Player {
 	}
 	
 	public boolean move(Room room) {
+		boolean ret = false;
 		if (this.curRoom.vacate(this, room)) {
 			this.curRoom = room;
-			return this.curRoom.enter(this);	
+			ret = this.curRoom.enter(this);
 		}
 		
 		this.curRole = null;
 		
-		return false;
+		return ret;
 	}
 
 	

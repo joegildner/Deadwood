@@ -78,7 +78,6 @@ public abstract class Room {
 	
 	public boolean isAdjacent(Room r) {
 		return connections.contains(r);
-		//return true;
 	}
 	
 	public boolean enter(Player p) {
@@ -101,7 +100,11 @@ public abstract class Room {
 		return;
 	}
 
-	public int getNewRank(String payType, int amount) {
+	public int getNewRankMoney(int amount) {
+		return -1;
+	}
+
+	public int getNewRankCr(int amount) {
 		return -1;
 	}
 	

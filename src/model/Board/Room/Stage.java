@@ -94,18 +94,23 @@ public class Stage extends Room {
 	@Override
 	public Role commit(Player p, String role) {
 		Role chosen = null;
-		
-		for (Role r : this.getRoles()) {
+		boolean found = false;
+
+		int i = 0;
+		ArrayList<Role> roles = this.getRoles();
+		while (i < roles.size() && !found) {
+			Role r = roles.get(i);
 			if (role.equalsIgnoreCase(r.getName())) {
 				chosen = r;
-				break;
+				found = true;
 			}
+			i++;
 		}
 		
-		if (chosen != null) {
-			return (chosen.fill(p)) ? chosen : null;
+		if (found && !chosen.fill(p)) {
+			chosen = null;
 		}
-		return null;
+		return chosen;
 	}
 	
 	@Override

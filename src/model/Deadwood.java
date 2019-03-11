@@ -211,7 +211,11 @@ public class Deadwood {
         if (options.length < 2) {
             System.out.println("Could not parse upgrade request.");
         } else {
-            p.upgrade(options[0], Integer.parseInt(options[1]));
+            if (options[0].contains("$")) {
+                p.upgradeMoney(Integer.parseInt(options[1]));
+            } else if (options[0].contains("cr")) {
+                p.upgradeCr(Integer.parseInt(options[1]));
+            }
         }
     }
 

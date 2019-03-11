@@ -15,11 +15,13 @@ public class Office extends Room {
 	}
 	
 	@Override
-	public int getNewRank(String payType, int amount) {
-		if (payType.contains("$")) {
-			return upgradeMoney.indexOf(amount) + 2;
-		}
-		
+	public int getNewRankMoney(int amount) {
+		return upgradeMoney.indexOf(amount) + 2;
+	}
+
+
+	@Override
+	public int getNewRankCr(int amount) {
 		return upgradeCr.indexOf(amount) +2;
 	}
 
