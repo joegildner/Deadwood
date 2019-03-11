@@ -4,10 +4,14 @@ import model.Board.*;
 import model.Board.Room.*;
 import resources.XmlParser;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
-public class Deadwood {
+public class Deadwood implements ActionListener{
 
     private static Trailer t;
     private static ArrayList<Room> board;
@@ -15,12 +19,14 @@ public class Deadwood {
     private Stack<Scene> scenes;
     private Stack<Scene> discard;
     private Die die;
-    private Scanner input;
     private int rounds;
+    private Player cur;
+    private Executor executor;
 
 
     public Deadwood(int players) {
         this.rounds = 4;
+        executor = Executors.newSingleThreadExecutor();
 
         if (players < 4) {
             this.rounds = 3;
@@ -28,7 +34,7 @@ public class Deadwood {
             System.out.println("Deadwood can handle a maximum of 8 players");
             System.exit(0);
         }
-        input = new Scanner(System.in);
+
         initBoard();
         initPlayers(players);
 
@@ -36,7 +42,6 @@ public class Deadwood {
 
     public void startGame() {
         play(rounds);
-        input.close();
     }
 
     public void printBoard() {
@@ -53,7 +58,6 @@ public class Deadwood {
         if (board == null) {
             System.out.println("Error reading board.xml");
             System.exit(0);
-            ;
         }
 
 
@@ -71,7 +75,6 @@ public class Deadwood {
             System.exit(0);
         }
 
-
         discard = new Stack<Scene>();
 
         Collections.shuffle(scenes);
@@ -82,12 +85,11 @@ public class Deadwood {
     }
 
     public void play(int rounds) {
-        Player cur;
         for (int i = 0; i < rounds; i++) {
             while (numWrapped() < 9) {
                 cur = order.poll();
 
-                takeTurn(cur);
+                getInput(cur);
 
                 order.offer(cur);
             }
@@ -152,14 +154,20 @@ public class Deadwood {
         return count;
     }
 
-    public void takeTurn(Player p) {
+    public void getInput(Player p) {
+        Scanner input = new Scanner(System.in);
         System.out.println("What would you like do to, " + p.getName() + "?");
         String choice = input.nextLine().trim();
+        input.close();
+        takeTurn(p, choice);
+    }
+
+    public void takeTurn(Player p, String choice){
         String[] division = splitChoice(choice);
         String firstWord = division[0];
         String options = division[1];
 
-        while (!firstWord.equalsIgnoreCase("end")) {
+        if (!firstWord.equalsIgnoreCase("end")) {
             if (firstWord.equalsIgnoreCase("who")) {
                 System.out.println(p);
             } else if (firstWord.equalsIgnoreCase("where")) {
@@ -179,11 +187,6 @@ public class Deadwood {
             } else {
                 System.out.println("Invalid choice. Try again.");
             }
-
-            choice = input.nextLine().trim();
-            division = splitChoice(choice);
-            firstWord = division[0];
-            options = division[1];
         }
     }
 
@@ -267,8 +270,18 @@ public class Deadwood {
         }
     }
 
-	public static ArrayList<Room> getBoard() {
+	public ArrayList<Room> getBoard() {
 		return board;
 	}
+
+    public Player getCurrentPlayer() {
+        return cur;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        System.out.println(actionEvent.getActionCommand());
+        executor.execute(() -> takeTurn(cur, actionEvent.getActionCommand()));
+    }
 }
 

@@ -25,7 +25,7 @@ public class PlayDeadwood {
 
     public static void initView(){
         gameFrame = new JFrame("Deadwood: the Cheap*** Game of Acting Badly");
-        gameFrame.setSize(1200, 900);
+        gameFrame.setSize(1200, 930);
 
         boardView = new MainView(dwModel.getBoard());
 
@@ -36,7 +36,7 @@ public class PlayDeadwood {
     }
 
     public static void initController(){
-        dwControl = new MainController(dwModel.getBoard(),boardView);
+        dwControl = new MainController(dwModel,boardView);
 
     }
 }

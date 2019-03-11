@@ -21,5 +21,11 @@ public class Upgrade {
         return this.area;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
 
+    public int getAmt() {
+        return amt;
+    }
 }
