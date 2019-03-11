@@ -19,6 +19,8 @@ public class PlayDeadwood {
         initView();
         initController();
 
+        dwModel.startGame();
+
     }
 
     public static void initView(){
@@ -28,8 +30,8 @@ public class PlayDeadwood {
         boardView = new MainView(dwModel.getBoard());
 
         gameFrame.getContentPane().add(boardView);
-        gameFrame.setVisible(true);
 
+        gameFrame.setVisible(true);
 
     }
 

@@ -20,7 +20,5 @@ public class SceneView extends JLayeredPane {
         thisScene.setIcon(sceneIcon);
         thisScene.setVisible(true);
         boardView.add(thisScene,new Integer(1));
-
-        System.out.println(Arrays.toString(area));
     }
 }
