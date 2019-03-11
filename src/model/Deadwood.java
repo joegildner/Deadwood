@@ -2,8 +2,9 @@ package model;
 
 import model.Board.*;
 import model.Board.Room.*;
-import model.Parsers.*;
+import resources.XmlParser;
 
+import java.net.URL;
 import java.util.*;
 
 public class Deadwood {
@@ -17,34 +18,6 @@ public class Deadwood {
     private Scanner input;
     private int rounds;
 
-	/*
-    public  void main(String[] args) {
-		if (args.length < 1) {
-			System.out.println("Must enter number of players when calling Deadwood.");
-			System.out.println("Example: java Deadwood <num players>");
-			System.exit(0);
-		}
-
-		int players = Integer.parseInt(args[0]);
-		int rounds = 4;
-
-		if (players < 4) {
-			rounds = 3;
-		} else if (players > 8) {
-			System.out.println("Deadwood can handle a maximum of 8 players");
-			System.exit(0);
-		}
-
-
-		input = new Scanner(System.in);
-		initBoard();
-		initPlayers(players);
-		
-		play(rounds);
-		input.close();
-
-	}
-	*/
 
     public Deadwood(int players) {
         this.rounds = 4;
@@ -74,7 +47,7 @@ public class Deadwood {
 
     private void initBoard() {
 
-        XmlParser roomParser = new XmlParser("../Deadwood/src/resources/board.xml");
+        XmlParser roomParser = new XmlParser("board.xml");
         board = roomParser.parseRooms();
 
         if (board == null) {
@@ -91,7 +64,7 @@ public class Deadwood {
             }
         }
 
-        XmlParser sceneParser = new XmlParser("../Deadwood/src/resources/cards.xml");
+        XmlParser sceneParser = new XmlParser("cards.xml");
         scenes = sceneParser.parseScenes();
         if (scenes == null) {
             System.out.println("Error reading cards.xml");
@@ -265,11 +238,23 @@ public class Deadwood {
 
         int loc = 0;
 
+        final Class cls = XmlParser.class;
+
         for (int i = 0; i < players; i++) {
             char c = imgs[loc];
             String[] imgFiles = new String[6];
             for (int j = 0; j < imgFiles.length; j++) {
-                imgFiles[j] = String.format("../Deadwood/src/resources/dice/%c%d.png", c, j + 1);
+                String f = String.format("%c%d.png", c, j + 1);
+
+                try {
+                    URL u = cls.getResource("dice/" + f);
+                    imgFiles[j] = u.getFile();
+                } catch (Exception e) {
+                    System.err.println(f);
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+
 
             }
             Player p = new Player(names[loc], t, imgFiles);

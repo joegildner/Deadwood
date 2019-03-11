@@ -1,4 +1,4 @@
-package model.Parsers;
+package resources;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -10,31 +10,42 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Stack;
 
 import model.Board.Scene;
 import model.Board.Role.*;
 
-//TODO: add image and sizes to parser
-
 public class XmlParser {
 	private String file;
 	private ArrayList<Room> board;
 	private Stack<Scene> scenes;
+	private final Class cls = XmlParser.class;
 	
-	public XmlParser(String file) {
+	public XmlParser(String type) {
+		String file = "";
+
+		try {
+			URL u = cls.getResource(type);
+			file = u.getFile();
+			//System.out.println(file);
+
+
+		} catch (Exception e) {
+			System.err.println(type);
+			e.printStackTrace();
+			System.exit(1);
+		}
+
+
+
 		this.file = file;
 		this.board = new ArrayList<>();
 		this.scenes = new Stack<>();
 	}
 	
-	public void setFile(String file) {
-		this.file = file;
-		this.board.clear();
-		this.scenes.clear();
-	}
-	
+
 /* ------------THE FOLLOWING CODE IS ADAPTED FROM XmlDemo.java PROVIDED BY ARAN CLAUSON -----------*/
 
 	
@@ -147,10 +158,23 @@ public class XmlParser {
 		int num = Integer.parseInt(
 				((Element) card.getElementsByTagName("scene").item(0)).getAttribute("number"));
 
-		String imgName = "../Deadwood/src/resources/cards/" + card.getAttribute("img");
 
+		String img = card.getAttribute("img");
+		String urlName = "";
+		try {
+			URL u = cls.getResource("cards/" + img);
+			urlName = u.getFile();
+			//System.out.println(urlName);
+		} catch (Exception e) {
+			System.err.println("cards/" + img);
+			e.printStackTrace();
+			System.exit(1);
+		}
+		//String imgName = "../Deadwood/src/resources/cards/" + card.getAttribute("img");
 
-		Scene s = new Scene(name, desc, budget, num, imgName);
+		//System.out.println(urlName);
+
+		Scene s = new Scene(name, desc, budget, num, urlName);
 		for_each(card.getElementsByTagName("part"),
 				(Element part) -> buildRole(part, s, null));
 		
