@@ -1,9 +1,8 @@
 package view;
 
-import model.Board.Room.Stage;
+import model.Room.Stage;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * Created by gildnej on 3/7/19.

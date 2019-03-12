@@ -1,4 +1,4 @@
-package model.Board.Role;
+package model.Role;
 public class Extra extends Role {
 
 	public Extra(String name, String line, int rank, int[] area) {

@@ -1,7 +1,7 @@
-package model.Board;
-import model.Board.Role.Role;
-import model.Board.Room.Trailer;
-import model.Board.Room.Room;
+package model;
+import model.Role.Role;
+import model.Room.Trailer;
+import model.Room.Room;
 
 public class Player {
 	
@@ -34,8 +34,8 @@ public class Player {
 		this.credits += reward[1];
 	}
 
-	public String getImgFile(int i) {
-		return imgFiles[i];
+	public String getImgFile() {
+		return imgFiles[rank];
 	}
 	
 	public void addEarnings(int money) {
@@ -178,6 +178,11 @@ public class Player {
 		return ret;
 	}
 
-	
+	public Role getCurRole() {
+		return curRole;
+	}
 
+	public Room getCurRoom() {
+		return curRoom;
+	}
 }

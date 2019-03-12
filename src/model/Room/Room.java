@@ -1,18 +1,17 @@
-package model.Board.Room;
+package model.Room;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import model.Board.Player;
-import model.Board.Scene;
-import model.Board.Role.Role;
+import model.Player;
+import model.Scene;
+import model.Role.Role;
 
 public abstract class Room {
-
-
-
 	protected String name;
 	protected ArrayList<Room> connections;
 	protected ArrayList<Player> players;
 	protected int[] area;
+
 	
 	public Room(String name) {
 		this.name = name;
@@ -139,5 +138,11 @@ public abstract class Room {
 
 	public int[] getArea() {
 		return area;
+	}
+
+	public int[] getPlayerPos(){
+		int[] pArea = Arrays.copyOf(area, area.length);
+		pArea[1] += area[2];
+		return pArea;
 	}
 }

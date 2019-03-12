@@ -11,10 +11,10 @@ public class Tester {
 
     public static void main(String[] args){
         JFrame mainFrame = new JFrame();
-        mainFrame.setTitle("Deadwood");
+        mainFrame.setTitle("DeadwoodController");
         mainFrame.setSize(1200, 900);
 
-        MainView mainView = new MainView(null);
+        MainView mainView = new MainView(null,null);
         mainFrame.getContentPane().add(mainView);
 
         mainFrame.addWindowListener(new WindowAdapter() {

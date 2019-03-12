@@ -1,8 +1,14 @@
-package model;
+package controller;
 
-import model.Board.*;
-import model.Board.Room.*;
+import model.*;
+import model.Die;
+import model.Player;
+import model.Room.Room;
+import model.Room.Stage;
+import model.Room.Trailer;
+import model.Scene;
 import resources.XmlParser;
+import view.PlayerView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,10 +17,11 @@ import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class Deadwood implements ActionListener{
+public class DeadwoodController implements ActionListener{
 
-    private static Trailer t;
-    private static ArrayList<Room> board;
+    private Trailer t;
+    private ArrayList<Room> board;
+    private ArrayList<Listener> listeners;
     private Queue<Player> order;
     private Stack<Scene> scenes;
     private Stack<Scene> discard;
@@ -23,15 +30,19 @@ public class Deadwood implements ActionListener{
     private Player cur;
     private Executor executor;
 
+    public interface Listener {
+        public void changed(Player p);
+    }
 
-    public Deadwood(int players) {
+    public DeadwoodController(int players) {
         this.rounds = 4;
         executor = Executors.newSingleThreadExecutor();
+        listeners = new ArrayList<>();
 
         if (players < 4) {
             this.rounds = 3;
         } else if (players > 8) {
-            System.out.println("Deadwood can handle a maximum of 8 players");
+            System.out.println("DeadwoodController can handle a maximum of 8 players");
             System.exit(0);
         }
 
@@ -187,6 +198,8 @@ public class Deadwood implements ActionListener{
             } else {
                 System.out.println("Invalid choice. Try again.");
             }
+
+            notifyListeners();
         }
     }
 
@@ -270,6 +283,7 @@ public class Deadwood implements ActionListener{
         }
     }
 
+
 	public ArrayList<Room> getBoard() {
 		return board;
 	}
@@ -278,10 +292,24 @@ public class Deadwood implements ActionListener{
         return cur;
     }
 
+    public Queue<Player> getPlayers() {
+        return order;
+    }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println(actionEvent.getActionCommand());
         executor.execute(() -> takeTurn(cur, actionEvent.getActionCommand()));
+    }
+
+    public void addListener(Listener l){
+        listeners.add(l);
+    }
+
+    public void notifyListeners(){
+        for(Listener l : listeners){
+            l.changed(cur);
+        }
     }
 }
 

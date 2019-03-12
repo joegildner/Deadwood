@@ -1,21 +1,13 @@
 package controller;
 
-import model.Board.Role.Extra;
-import model.Board.Role.Lead;
-import model.Board.Role.Role;
-import model.Board.Room.Stage;
-import model.Deadwood;
+import model.Role.Extra;
+import model.Role.Lead;
+import model.Role.Role;
+import model.Room.Stage;
 import view.MainView;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by gildnej on 3/7/19.
@@ -26,9 +18,9 @@ public class StageController{
     private JButton moveHere;
     private ArrayList<JButton> extras;
     private ArrayList<JButton> stars;
-    private Deadwood deadwood;
+    private DeadwoodController deadwood;
 
-    public StageController(Stage thisStage, MainView boardView, Deadwood deadwood){
+    public StageController(Stage thisStage, MainView boardView, DeadwoodController deadwood){
         extras = new ArrayList<JButton>();
         stars = new ArrayList<>();
         stageName = thisStage.getName();
@@ -65,10 +57,10 @@ public class StageController{
         JButton thisButton = new JButton();
         int[] area = thisStage.getArea();
 
-        thisButton.setBounds(area[0],area[1] +115,area[3]/2,40);
+        thisButton.setBounds(area[0]+area[3]/4,area[1] +115,area[3]/2,40);
         thisButton.setOpaque(false);
         thisButton.setContentAreaFilled(false);
-        thisButton.setBorderPainted(true);
+        thisButton.setBorderPainted(false);
         thisButton.setVisible(true);
 
         thisButton.addActionListener(deadwood);

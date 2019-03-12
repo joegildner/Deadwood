@@ -1,4 +1,4 @@
-package model.Board.Room;
+package model.Room;
 
 /**
  * Created by grappom on 3/7/19.
@@ -21,10 +21,6 @@ public class Upgrade {
         return this.level;
     }
 
-    public int getAmount() {
-        return this.amt;
-    }
-
     public String getCurrency() {
         return this.currency;
     }
@@ -33,16 +29,9 @@ public class Upgrade {
         return this.area;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
 
-<<<<<<< HEAD
     public int getAmt() {
         return amt;
     }
-=======
 
-
->>>>>>> fc77f3b7a75fa71ad00acd552d588c521cbd87ca
 }

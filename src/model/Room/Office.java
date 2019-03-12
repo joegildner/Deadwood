@@ -1,4 +1,4 @@
-package model.Board.Room;
+package model.Room;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -49,6 +49,13 @@ public class Office extends Room {
 			System.out.print(upgradeCr.get(i) + "\t");
 			System.out.println();
 		}
+	}
+
+	@Override
+	public int[] getPlayerPos(){
+		int[] pArea = Arrays.copyOf(area, area.length);
+		pArea[1] += area[2]/5;
+		return pArea;
 	}
 		
 	

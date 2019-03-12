@@ -1,42 +1,48 @@
-import controller.MainController;
-import model.Deadwood;
+import controller.BoardController;
+import controller.DeadwoodController;
 import view.MainView;
-import view.SceneView;
+import view.PlayerView;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class PlayDeadwood {
     private static JFrame gameFrame;
     private static MainView boardView;
-    private static Deadwood dwModel;
-    private static MainController dwControl;
+    private static DeadwoodController dwControl;
+    private static BoardController boardControl;
 
     public static void main(String[] args) {
         int players = Integer.parseInt(args[0]);
-        dwModel = new Deadwood(players);
+        dwControl = new DeadwoodController(players);
 
         initView();
         initController();
 
-        dwModel.startGame();
+        dwControl.startGame();
 
     }
 
     public static void initView(){
-        gameFrame = new JFrame("Deadwood: the Cheap*** Game of Acting Badly");
+        gameFrame = new JFrame("DeadwoodController: the Cheap*** Game of Acting Badly");
         gameFrame.setSize(1200, 930);
 
-        boardView = new MainView(dwModel.getBoard());
+        boardView = new MainView(dwControl.getBoard(), dwControl.getPlayers());
+
+        initListeners();
 
         gameFrame.getContentPane().add(boardView);
-
         gameFrame.setVisible(true);
 
     }
 
     public static void initController(){
-        dwControl = new MainController(dwModel,boardView);
+        boardControl = new BoardController(dwControl,boardView);
 
+    }
+
+    public static void initListeners(){
+        for(PlayerView pv : boardView.getpViews()){
+            dwControl.addListener(pv);
+        }
     }
 }

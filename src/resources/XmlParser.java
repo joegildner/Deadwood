@@ -3,7 +3,9 @@ package resources;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
-import model.Board.Room.*;
+import model.Role.Extra;
+import model.Role.Lead;
+import model.Room.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -14,8 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import model.Board.Scene;
-import model.Board.Role.*;
+import model.Scene;
 
 public class XmlParser {
 	private String file;
@@ -170,7 +171,7 @@ public class XmlParser {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		//String imgName = "../Deadwood/src/resources/cards/" + card.getAttribute("img");
+		//String imgName = "../DeadwoodController/src/resources/cards/" + card.getAttribute("img");
 
 		//System.out.println(urlName);
 

@@ -6,28 +6,28 @@ package controller;
 //import java.util.LinkedList;
 //import java.util.List;
 //import java.awt.event.*;
-import model.Board.Room.Office;
-import model.Board.Room.Room;
-import model.Board.Room.Stage;
-import model.Deadwood;
+import model.Room.Office;
+import model.Room.Room;
+import model.Room.Stage;
+import model.Room.Trailer;
 import view.MainView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 //import javax.imageio.*;
 //import java.io.*;
 //import java.awt.image.*;
 //import java.awt.Color;
 
-public class MainController{
+public class BoardController {
     private ArrayList<StageController> stages;
     private OfficeController office;
+    private TrailerController trailer;
     private JButton act;
     private JButton rehearse;
-    private Deadwood deadwood;
+    private DeadwoodController deadwood;
 
-    public MainController(Deadwood dwModel, MainView boardView) {
+    public BoardController(DeadwoodController dwModel, MainView boardView) {
         stages = new ArrayList<>();
         ArrayList<Room> rooms = dwModel.getBoard();
         deadwood = dwModel;
@@ -37,6 +37,8 @@ public class MainController{
                 stages.add(new StageController((Stage)thisRoom, boardView, dwModel));
             if(thisRoom instanceof Office)
                 office = new OfficeController((Office)thisRoom, boardView, dwModel);
+            if(thisRoom instanceof Trailer)
+                trailer = new TrailerController((Trailer)thisRoom, boardView, dwModel);
         }
 
         act = createButton(new int[]{0,900,75,30}, "Act", boardView);

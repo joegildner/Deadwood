@@ -1,4 +1,4 @@
-package model.Board;
+package model;
 import java.util.Random;
 
 

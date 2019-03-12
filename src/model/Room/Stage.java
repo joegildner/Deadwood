@@ -1,9 +1,9 @@
-package model.Board.Room;
+package model.Room;
 import java.util.ArrayList;
 
-import model.Board.Player;
-import model.Board.Scene;
-import model.Board.Role.Role;
+import model.Player;
+import model.Scene;
+import model.Role.Role;
 
 public class Stage extends Room {
 	

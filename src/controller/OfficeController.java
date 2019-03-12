@@ -1,9 +1,7 @@
 package controller;
 
-import model.Board.Role.Role;
-import model.Board.Room.Office;
-import model.Board.Room.Upgrade;
-import model.Deadwood;
+import model.Room.Office;
+import model.Room.Upgrade;
 import view.MainView;
 
 import javax.swing.*;
@@ -15,9 +13,9 @@ import java.util.ArrayList;
 public class OfficeController {
 
     private ArrayList<JButton> upgradeButtons;
-    private Deadwood deadwood;
+    private DeadwoodController deadwood;
 
-    public OfficeController(Office office, MainView boardView, Deadwood deadwood){
+    public OfficeController(Office office, MainView boardView, DeadwoodController deadwood){
         this.deadwood = deadwood;
         upgradeButtons = new ArrayList<>();
 
@@ -54,7 +52,7 @@ public class OfficeController {
         thisButton.setBounds(area[0],area[1],area[2],60);
         thisButton.setOpaque(false);
         thisButton.setContentAreaFilled(false);
-        thisButton.setBorderPainted(true);
+        thisButton.setBorderPainted(false);
         thisButton.setVisible(true);
 
         thisButton.addActionListener(deadwood);

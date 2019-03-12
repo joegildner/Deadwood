@@ -1,10 +1,10 @@
-package model.Board;
+package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import model.Board.Role.Lead;
-import model.Board.Role.Role;
+import model.Role.Lead;
+import model.Role.Role;
 
 public class Scene {
 	
