@@ -35,7 +35,7 @@ public class Player {
 	}
 
 	public String getImgFile() {
-		return imgFiles[rank];
+		return imgFiles[rank-1];
 	}
 	
 	public void addEarnings(int money) {
@@ -111,7 +111,7 @@ public class Player {
 				this.credits -= amount;
 				upgrade = true;
 			} else {
-				System.out.println("Not enough money to perform upgrade");
+				System.out.println("Not enough credits to perform upgrade");
 			}
 			if (upgrade) {
 				this.rank = newRank;
