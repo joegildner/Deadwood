@@ -37,6 +37,7 @@ public class DeadwoodController implements ActionListener{
         this.rounds = 4;
         executor = Executors.newSingleThreadExecutor();
         listeners = new ArrayList<>();
+        order = new LinkedList<>();
 
         if (players < 4) {
             this.rounds = 3;
@@ -89,6 +90,8 @@ public class DeadwoodController implements ActionListener{
 
         Collections.shuffle(scenes);
 
+        System.out.println("size of scenes: " + scenes.size());
+
         die = new Die();
 
         newDay();
@@ -96,7 +99,7 @@ public class DeadwoodController implements ActionListener{
 
     public void play(int rounds) {
         for (int i = 0; i < rounds; i++) {
-            while (numWrapped() < 9) {
+                System.out.println("size of scenes: " + scenes.size());
                 cur = order.poll();
                 notifyListeners();
                 try {
@@ -107,10 +110,8 @@ public class DeadwoodController implements ActionListener{
                     e.printStackTrace();
                 }
                 notifyListeners();
-
                 order.offer(cur);
-            }
-            newDay();
+
         }
 
         System.out.println("Game ended! Point values:");
@@ -159,6 +160,12 @@ public class DeadwoodController implements ActionListener{
                 discard.push(scenes.pop());
             }
         }
+
+        if (order.size() > 0) {
+            for (Player p : order) {
+                p.newDay();
+            }
+        }
     }
 
     public int numWrapped() {
@@ -198,6 +205,8 @@ public class DeadwoodController implements ActionListener{
             } else if (firstWord.equalsIgnoreCase("act")) {
                 p.act(die.roll());
             } else if (firstWord.equalsIgnoreCase("end")) {
+                if (numWrapped() > 8)
+                    newDay();
                 synchronized (ob) {
                     ob.notify();
                 }
@@ -260,7 +269,7 @@ public class DeadwoodController implements ActionListener{
 
 
     public void initPlayers(int players) {
-        order = new LinkedList<Player>();
+
         String[] names = {"blue", "cyan", "green", "orange", "pink", "red", "violet", "yellow"};
 
         char[] imgs = {'b', 'c', 'g', 'o', 'p', 'r', 'v', 'y'};
