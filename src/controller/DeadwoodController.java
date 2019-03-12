@@ -1,6 +1,5 @@
 package controller;
 
-import model.*;
 import model.Die;
 import model.Player;
 import model.Room.Room;
@@ -8,7 +7,6 @@ import model.Room.Stage;
 import model.Room.Trailer;
 import model.Scene;
 import resources.XmlParser;
-import view.PlayerView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -215,17 +213,18 @@ public class DeadwoodController implements ActionListener{
 
     private void move(Player p, String input) {
         Room dest = null;
+        int i = 0;
 
-        for (int i = 0; i < board.size(); i++) {
+        while (i < board.size() && dest == null) {
             Room r = board.get(i);
             if (r.getName().equalsIgnoreCase(input)) {
                 dest = r;
-                break;
             }
+            i++;
         }
 
         if (dest == null) {
-            System.out.println("Could not find specfied Room " + input);
+            System.out.println("Could not find specified Room " + input);
         } else {
             if (p.move(dest))
                 System.out.println("Moved to " + input);

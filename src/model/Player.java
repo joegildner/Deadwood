@@ -81,19 +81,23 @@ public class Player {
 	}
 	
 	public void commit(String role) {
-		 if (role != null) {
-			 Role r = curRoom.commit(this, role);
-			 if (r != null) {
-				 this.curRole = r;
-				 System.out.print("Committed to \"" + role + "\" ");
+		if (curRole != null) {
+			if (role != null) {
+				Role r = curRoom.commit(this, role);
+				if (r != null) {
+					this.curRole = r;
+					System.out.print("Committed to \"" + role + "\" ");
 
-			 } else {
-				 System.out.print("Could not commit to role \"" + role + "\" ");
-			 }
-			 System.out.println("in room " + curRoom.getName());
-		 } else {
-		 	System.out.println("You must enter a role to work");
-		 }
+				} else {
+					System.out.print("Could not commit to role \"" + role + "\" ");
+				}
+				System.out.println("in room " + curRoom.getName());
+			} else {
+				System.out.println("You must enter a role to work");
+			}
+		} else {
+			System.out.println("You cannot commit to a new role until you complete work at " + curRole.getName());
+		}
 	}
 
 	private void clearRole() {
@@ -168,12 +172,13 @@ public class Player {
 	
 	public boolean move(Room room) {
 		boolean ret = false;
-		if (this.curRoom.vacate(this, room)) {
+		if (curRole != null) {
+			System.out.println("You cannot leave " + curRoom.getName() + " until you finish the scene.");
+		} else if (this.curRoom.vacate(this, room)) {
 			this.curRoom = room;
 			ret = this.curRoom.enter(this);
+			this.curRole = null;
 		}
-		
-		this.curRole = null;
 		
 		return ret;
 	}
