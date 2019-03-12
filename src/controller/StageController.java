@@ -8,6 +8,7 @@ import view.MainView;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by gildnej on 3/7/19.
@@ -42,7 +43,7 @@ public class StageController{
         thisButton.setBounds(area[0],area[1],area[2],area[3]);
         thisButton.setOpaque(false);
         thisButton.setContentAreaFilled(false);
-        thisButton.setBorderPainted(true);
+        thisButton.setBorderPainted(false);
         thisButton.setVisible(true);
 
         thisButton.addActionListener(deadwood);
@@ -76,7 +77,7 @@ public class StageController{
         int[] sceneArea = thisStage.getArea();
 
         for(Role starRole : thisStage.getRoles()){
-            int[] actualArea = starRole.getArea();
+            int[] actualArea = Arrays.copyOf(starRole.getArea(), starRole.getArea().length);
 
             actualArea[0] += sceneArea[0];
             actualArea[1] += sceneArea[1];

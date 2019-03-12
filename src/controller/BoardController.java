@@ -25,6 +25,7 @@ public class BoardController {
     private TrailerController trailer;
     private JButton act;
     private JButton rehearse;
+    private JButton end;
     private DeadwoodController deadwood;
 
     public BoardController(DeadwoodController dwModel, MainView boardView) {
@@ -41,8 +42,10 @@ public class BoardController {
                 trailer = new TrailerController((Trailer)thisRoom, boardView, dwModel);
         }
 
-        act = createButton(new int[]{0,900,75,30}, "Act", boardView);
-        rehearse = createButton(new int[]{80,900,150,30}, "Rehearse", boardView);
+        end = createButton(new int[]{1120, 900, 75, 50}, "End", boardView);
+        act = createButton(new int[]{1040,900,75,50}, "Act", boardView);
+        rehearse = createButton(new int[]{885,900,150,50}, "Rehearse", boardView);
+
     }
 
     public JButton createButton(int[] area, String command, MainView boardView){

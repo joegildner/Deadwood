@@ -29,6 +29,7 @@ public class DeadwoodController implements ActionListener{
     private int rounds;
     private Player cur;
     private Executor executor;
+    private final Object ob = new Object();
 
     public interface Listener {
         public void changed(Player p);
@@ -99,8 +100,15 @@ public class DeadwoodController implements ActionListener{
         for (int i = 0; i < rounds; i++) {
             while (numWrapped() < 9) {
                 cur = order.poll();
-
-                getInput(cur);
+                notifyListeners();
+                try {
+                    synchronized (ob) {
+                        ob.wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                notifyListeners();
 
                 order.offer(cur);
             }
@@ -177,8 +185,6 @@ public class DeadwoodController implements ActionListener{
         String[] division = splitChoice(choice);
         String firstWord = division[0];
         String options = division[1];
-
-        if (!firstWord.equalsIgnoreCase("end")) {
             if (firstWord.equalsIgnoreCase("who")) {
                 System.out.println(p);
             } else if (firstWord.equalsIgnoreCase("where")) {
@@ -195,13 +201,17 @@ public class DeadwoodController implements ActionListener{
                 p.act(die.roll());
             } else if (firstWord.equalsIgnoreCase("add")) {
                 p.addEarnings(Integer.parseInt(options));
+            } else if (firstWord.equalsIgnoreCase("end")) {
+                synchronized (ob) {
+                    ob.notify();
+                }
             } else {
                 System.out.println("Invalid choice. Try again.");
             }
 
             notifyListeners();
         }
-    }
+
 
     private void move(Player p, String input) {
         Room dest = null;
@@ -254,7 +264,7 @@ public class DeadwoodController implements ActionListener{
         order = new LinkedList<Player>();
         String[] names = {"blue", "cyan", "green", "orange", "pink", "red", "violet", "yellow"};
 
-        char[] imgs = {'b', 'c', 'g', 'p', 'r', 'v', 'y'};
+        char[] imgs = {'b', 'c', 'g', 'o', 'p', 'r', 'v', 'y'};
 
         int loc = 0;
 
@@ -299,7 +309,8 @@ public class DeadwoodController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         System.out.println(actionEvent.getActionCommand());
-        executor.execute(() -> takeTurn(cur, actionEvent.getActionCommand()));
+        takeTurn(cur, actionEvent.getActionCommand());
+
     }
 
     public void addListener(Listener l){

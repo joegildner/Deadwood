@@ -27,7 +27,7 @@ public class MainView extends JLayeredPane {
 
     public MainView(ArrayList<Room> rooms, Queue<Player> players) {
         super();
-        setSize(1200,930);
+        setSize(1200,950);
 
         board = new JLabel();
         add(board,new Integer(0));
