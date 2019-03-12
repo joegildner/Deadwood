@@ -197,8 +197,6 @@ public class DeadwoodController implements ActionListener{
                 p.rehearse();
             } else if (firstWord.equalsIgnoreCase("act")) {
                 p.act(die.roll());
-            } else if (firstWord.equalsIgnoreCase("add")) {
-                p.addEarnings(Integer.parseInt(options));
             } else if (firstWord.equalsIgnoreCase("end")) {
                 synchronized (ob) {
                     ob.notify();
@@ -229,6 +227,8 @@ public class DeadwoodController implements ActionListener{
             if (p.move(dest))
                 System.out.println("Moved to " + input);
         }
+
+
     }
 
     private void upgrade(Player p, String input) {
@@ -236,7 +236,7 @@ public class DeadwoodController implements ActionListener{
         if (options.length < 2) {
             System.out.println("Could not parse upgrade request.");
         } else {
-            if (options[0].contains("$")) {
+            if (options[0].contains("dollar")) {
                 p.upgradeMoney(Integer.parseInt(options[1]));
             } else if (options[0].contains("cr")) {
                 p.upgradeCr(Integer.parseInt(options[1]));

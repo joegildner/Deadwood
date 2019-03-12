@@ -96,19 +96,21 @@ public class Stage extends Room {
 		Role chosen = null;
 		boolean found = false;
 
-		int i = 0;
-		ArrayList<Role> roles = this.getRoles();
-		while (i < roles.size() && !found) {
-			Role r = roles.get(i);
-			if (role.equalsIgnoreCase(r.getName())) {
-				chosen = r;
-				found = true;
+		if (!isComplete()) {
+			int i = 0;
+			ArrayList<Role> roles = this.getRoles();
+			while (i < roles.size() && !found) {
+				Role r = roles.get(i);
+				if (role.equalsIgnoreCase(r.getName())) {
+					chosen = r;
+					found = true;
+				}
+				i++;
 			}
-			i++;
-		}
-		
-		if (found && !chosen.fill(p)) {
-			chosen = null;
+
+			if (found && !chosen.fill(p)) {
+				chosen = null;
+			}
 		}
 		return chosen;
 	}

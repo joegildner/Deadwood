@@ -81,7 +81,7 @@ public class Player {
 	}
 	
 	public void commit(String role) {
-		if (curRole != null) {
+		if (curRole == null) {
 			if (role != null) {
 				Role r = curRoom.commit(this, role);
 				if (r != null) {
@@ -96,7 +96,7 @@ public class Player {
 				System.out.println("You must enter a role to work");
 			}
 		} else {
-			System.out.println("You cannot commit to a new role until you complete work at " + curRole.getName());
+			System.out.println("You cannot commit to a new role until you complete work as " + curRole.getName());
 		}
 	}
 
@@ -178,6 +178,7 @@ public class Player {
 			this.curRoom = room;
 			ret = this.curRoom.enter(this);
 			this.curRole = null;
+			this.tokens = 0;
 		}
 		
 		return ret;
