@@ -51,9 +51,7 @@ public class SceneView extends JLayeredPane implements DeadwoodController.Listen
             takeLabel.setBounds(takeArea[0],takeArea[1],takeArea[2],takeArea[3]);
             takeLabel.setVisible(true);
             takes.push(takeLabel);
-            System.out.println("here");
         }
-        System.out.println();
     }
 
     public void changed(Player p){

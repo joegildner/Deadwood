@@ -6,6 +6,7 @@ package view;
 //import java.util.LinkedList;
 //import java.util.List;
 //import java.awt.event.*;
+import controller.DeadwoodController;
 import model.Player;
 import model.Room.Room;
 import model.Room.Stage;
@@ -19,16 +20,19 @@ import java.util.Queue;
 //import java.awt.image.*;
 //import java.awt.Color;
 
-public class MainView extends JLayeredPane {
+public class MainView extends JLayeredPane implements DeadwoodController.DayListener{
 
     private JLabel board;
     private ArrayList<SceneView> sceneViews;
     private ArrayList<PlayerView> pViews;
+    private ArrayList<Room> rooms;
 
 
     public MainView(ArrayList<Room> rooms, Queue<Player> players) {
         super();
         setSize(1200,950);
+
+        this.rooms=rooms;
 
         board = new JLabel();
         add(board,new Integer(0));
@@ -52,10 +56,7 @@ public class MainView extends JLayeredPane {
         sceneViews = new ArrayList<>();
         pViews = new ArrayList<>();
 
-        for(Room thisRoom : rooms){
-            if(thisRoom instanceof Stage)
-                sceneViews.add(new SceneView((Stage)thisRoom, this));
-        }
+        initScenes();
 
         int n = 1;
         for(Player p : players){
@@ -67,8 +68,12 @@ public class MainView extends JLayeredPane {
         setFocusable(true);
     }
 
-    public void initPViews(){
-
+    public void initScenes(){
+        sceneViews.clear();
+        for(Room thisRoom : rooms){
+            if(thisRoom instanceof Stage)
+                sceneViews.add(new SceneView((Stage)thisRoom, this));
+        }
     }
 
     public ArrayList<PlayerView> getPViews() {
@@ -77,5 +82,9 @@ public class MainView extends JLayeredPane {
 
     public ArrayList<SceneView> getSViews() {
         return sceneViews;
+    }
+
+    public void changed(){
+        initScenes();
     }
 }

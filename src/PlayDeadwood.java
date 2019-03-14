@@ -55,5 +55,7 @@ public class PlayDeadwood {
         for(SceneView sv : boardView.getSViews()){
             dwControl.addListener(sv);
         }
+
+        dwControl.setDayListen(boardView);
     }
 }

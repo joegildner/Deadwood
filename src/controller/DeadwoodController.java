@@ -20,6 +20,7 @@ public class DeadwoodController implements ActionListener{
     private Trailer t;
     private ArrayList<Room> board;
     private ArrayList<Listener> listeners;
+    private DayListener dayListen;
     private Queue<Player> order;
     private Stack<Scene> scenes;
     private Stack<Scene> discard;
@@ -31,6 +32,10 @@ public class DeadwoodController implements ActionListener{
 
     public interface Listener {
         public void changed(Player p);
+    }
+
+    public interface DayListener {
+        public void changed();
     }
 
     public DeadwoodController(int players) {
@@ -98,7 +103,7 @@ public class DeadwoodController implements ActionListener{
     }
 
     public void play(int rounds) {
-        for (int i = 0; i < rounds; i++) {
+        while(rounds > 0) {
                 System.out.println("size of scenes: " + scenes.size());
                 cur = order.poll();
                 notifyListeners();
@@ -111,7 +116,6 @@ public class DeadwoodController implements ActionListener{
                 }
                 notifyListeners();
                 order.offer(cur);
-
         }
 
         System.out.println("Game ended! Point values:");
@@ -166,6 +170,11 @@ public class DeadwoodController implements ActionListener{
                 p.newDay();
             }
         }
+
+        if (dayListen != null) {
+            notifyDay();
+        }
+        rounds--;
     }
 
     public int numWrapped() {
@@ -213,7 +222,6 @@ public class DeadwoodController implements ActionListener{
             } else {
                 System.out.println("Invalid choice. Try again.");
             }
-
             notifyListeners();
         }
 
@@ -325,10 +333,18 @@ public class DeadwoodController implements ActionListener{
         listeners.add(l);
     }
 
+    public void setDayListen(DayListener l){
+        dayListen = l;
+    }
+
     public void notifyListeners(){
         for(Listener l : listeners){
             l.changed(cur);
         }
+    }
+
+    public void notifyDay(){
+        dayListen.changed();
     }
 }
 
