@@ -71,11 +71,14 @@ public class MainView extends JLayeredPane implements DeadwoodController.DayList
     }
 
     public void initScenes(){
+        for (SceneView sv: sceneViews)
+            this.remove(sv.getSceneCard());
         sceneViews.clear();
         for(Room thisRoom : rooms){
             if(thisRoom instanceof Stage)
                 sceneViews.add(new SceneView((Stage)thisRoom, this));
         }
+
     }
 
     public ArrayList<PlayerView> getPViews() {
@@ -91,5 +94,7 @@ public class MainView extends JLayeredPane implements DeadwoodController.DayList
 
         for (SceneView sv: sceneViews)
             dwController.addListener(sv);
+
+        this.repaint();
     }
 }

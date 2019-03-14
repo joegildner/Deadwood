@@ -1,5 +1,6 @@
 import controller.BoardController;
 import controller.DeadwoodController;
+import controller.StageController;
 import view.MainView;
 import view.PlayerView;
 import view.SceneView;
@@ -21,8 +22,8 @@ public class PlayDeadwood {
         initView();
         initController();
 
+        initListeners();
         dwControl.startGame();
-
     }
 
     public static void initView(){
@@ -30,8 +31,6 @@ public class PlayDeadwood {
         gameFrame.setSize(1200, 950);
 
         boardView = new MainView(dwControl.getBoard(), dwControl.getPlayers(), dwControl);
-
-        initListeners();
 
         gameFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -56,6 +55,9 @@ public class PlayDeadwood {
             dwControl.addListener(sv);
         }
 
-        dwControl.setDayListen(boardView);
+        dwControl.addDayListener(boardView);
+        for (StageController sc : boardControl.getStages()) {
+            dwControl.addDayListener(sc);
+        }
     }
 }

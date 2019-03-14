@@ -72,4 +72,8 @@ public class SceneView extends JLayeredPane implements DeadwoodController.Listen
         if(stage.getTakes() == 0) boardView.remove(sceneCard);
         boardView.repaint();
     }
+
+    public JLabel getSceneCard() {
+        return sceneCard;
+    }
 }

@@ -62,4 +62,8 @@ public class BoardController {
 
         return thisButton;
     }
+
+    public ArrayList<StageController> getStages() {
+        return stages;
+    }
 }

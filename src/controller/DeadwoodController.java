@@ -20,7 +20,7 @@ public class DeadwoodController implements ActionListener{
     private Trailer t;
     private ArrayList<Room> board;
     private ArrayList<Listener> listeners;
-    private DayListener dayListen;
+    private ArrayList<DayListener> dayListen;
     private Queue<Player> order;
     private Stack<Scene> scenes;
     private Stack<Scene> discard;
@@ -43,6 +43,7 @@ public class DeadwoodController implements ActionListener{
         executor = Executors.newSingleThreadExecutor();
         listeners = new ArrayList<>();
         order = new LinkedList<>();
+        dayListen = new ArrayList<>();
 
         if (players < 4) {
             this.rounds = 3;
@@ -57,7 +58,7 @@ public class DeadwoodController implements ActionListener{
     }
 
     public void startGame() {
-        play(rounds);
+        play();
     }
 
     public void printBoard() {
@@ -102,7 +103,7 @@ public class DeadwoodController implements ActionListener{
         newDay();
     }
 
-    public void play(int rounds) {
+    public void play() {
         while(rounds > 0) {
                 System.out.println("size of scenes: " + scenes.size());
                 cur = order.poll();
@@ -117,9 +118,6 @@ public class DeadwoodController implements ActionListener{
                 notifyListeners();
                 order.offer(cur);
         }
-
-        System.out.println("Game ended! Point values:");
-        finalScores();
     }
 
     public void finalScores() {
@@ -133,10 +131,10 @@ public class DeadwoodController implements ActionListener{
 
         Arrays.sort(scores);
 
-        for (int i = 0; i < scores.length; i++) {
+        for (int i = scores.length -1; i>=0; i--) {
             Player p = matchScore(scores[i]);
-            int place = i + 1;
-            System.out.println(place + ": " + p.getName());
+            int place = scores.length-i;
+            System.out.println(place + ": " + p.getName() +" "+ p.getScore());
         }
 
 
@@ -156,25 +154,31 @@ public class DeadwoodController implements ActionListener{
     }
 
     public void newDay() {
-        for (int i = 0; i < board.size(); i++) {
-            Room r = board.get(i);
-            r.newDay();
-            if (r instanceof Stage) {
-                r.newScene(scenes.peek());
-                discard.push(scenes.pop());
+        if (rounds > 0) {
+            for (int i = 0; i < board.size(); i++) {
+                Room r = board.get(i);
+                r.newDay();
+                if (r instanceof Stage) {
+                    r.newScene(scenes.peek());
+                    discard.push(scenes.pop());
+                }
             }
-        }
 
-        if (order.size() > 0) {
-            for (Player p : order) {
-                p.newDay();
+            if (order.size() > 0) {
+                for (Player p : order) {
+                    p.newDay();
+                }
             }
-        }
 
-        if (dayListen != null) {
-            notifyDay();
+            if (dayListen != null) {
+                notifyDay();
+            }
+            rounds--;
+        } else {
+            System.out.println("Game ended! Point values:");
+            finalScores();
+            System.exit(0);
         }
-        rounds--;
     }
 
     public int numWrapped() {
@@ -333,8 +337,8 @@ public class DeadwoodController implements ActionListener{
         listeners.add(l);
     }
 
-    public void setDayListen(DayListener l){
-        dayListen = l;
+    public void addDayListener(DayListener l){
+        dayListen.add(l);
     }
 
     public void notifyListeners(){
@@ -344,7 +348,7 @@ public class DeadwoodController implements ActionListener{
     }
 
     public void notifyDay(){
-        dayListen.changed();
+        for(DayListener dl : dayListen) dl.changed();
     }
 }
 

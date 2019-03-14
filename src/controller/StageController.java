@@ -13,7 +13,7 @@ import java.util.Arrays;
 /**
  * Created by gildnej on 3/7/19.
  */
-public class StageController{
+public class StageController implements DeadwoodController.DayListener{
 
     private String stageName;
     private JButton moveHere;
@@ -21,20 +21,25 @@ public class StageController{
     private ArrayList<JButton> stars;
     private DeadwoodController deadwood;
 
-    public StageController(Stage thisStage, MainView boardView, DeadwoodController deadwood){
+    private Stage stage;
+    private MainView boardView;
+
+    public StageController(Stage stage, MainView boardView, DeadwoodController deadwood){
         extras = new ArrayList<JButton>();
         stars = new ArrayList<>();
-        stageName = thisStage.getName();
+        stageName = stage.getName();
         this.deadwood = deadwood;
+        this.stage = stage;
+        this.boardView = boardView;
 
-        for(Role extraRole : thisStage.getRoles()){
+        for(Role extraRole : stage.getRoles()){
             if(extraRole instanceof Extra)
                 extras.add(createButton(extraRole, extraRole.getArea(), boardView));
         }
 
-        moveHere = createButton(thisStage, boardView);
+        moveHere = createButton(stage, boardView);
 
-        updateStars(thisStage, boardView);
+        updateStars();
     }
 
     public JButton createButton(Role thisRole, int[] area, MainView boardView){
@@ -72,11 +77,16 @@ public class StageController{
         return thisButton;
     }
 
-    public void updateStars(Stage thisStage, MainView boardView){
-        stars.clear();
-        int[] sceneArea = thisStage.getArea();
+    public void updateStars(){
+        for(JButton starButton : stars){
+            boardView.remove(starButton);
+        }
 
-        for(Role starRole : thisStage.getRoles()){
+        stars = new ArrayList<>();
+
+        int[] sceneArea = stage.getArea();
+
+        for(Role starRole : stage.getRoles()){
             int[] actualArea = Arrays.copyOf(starRole.getArea(), starRole.getArea().length);
 
             actualArea[0] += sceneArea[0];
@@ -86,5 +96,9 @@ public class StageController{
                 stars.add(createButton(starRole, actualArea, boardView));
         }
 
+    }
+
+    public void changed(){
+        updateStars();
     }
 }
