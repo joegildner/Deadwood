@@ -11,6 +11,7 @@ import model.Room.Room;
 import model.Room.Stage;
 
 import javax.swing.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Queue;
 //import javax.imageio.*;
@@ -32,7 +33,20 @@ public class MainView extends JLayeredPane {
         board = new JLabel();
         add(board,new Integer(0));
         board.setBounds(0,0,1200, 900);
-        ImageIcon boardIcon = new ImageIcon("../Deadwood/src/resources/board.jpg");
+
+        String filename = "";
+        Class cls = MainView.class;
+        try {
+            URL u = cls.getResource("board.jpg");
+            filename = u.getFile();
+        } catch (Exception e) {
+            System.err.println("board.jpg");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        //ImageIcon boardIcon = new ImageIcon("../Deadwood/src/resources/board.jpg");
+        ImageIcon boardIcon = new ImageIcon(filename);
         board.setIcon(boardIcon);
 
         sceneViews = new ArrayList<>();

@@ -30,7 +30,6 @@ public class XmlParser {
 		try {
 			URL u = cls.getResource(type);
 			file = u.getFile();
-			//System.out.println(file);
 
 
 		} catch (Exception e) {
@@ -38,8 +37,6 @@ public class XmlParser {
 			e.printStackTrace();
 			System.exit(1);
 		}
-
-
 
 		this.file = file;
 		this.board = new ArrayList<>();
@@ -87,8 +84,8 @@ public class XmlParser {
 		Element root = null;
 
 		try {
+
 			File inputFile = new File(filename);
-			//System.out.println(inputFile.getCanonicalPath());
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -165,15 +162,11 @@ public class XmlParser {
 		try {
 			URL u = cls.getResource("cards/" + img);
 			urlName = u.getFile();
-			//System.out.println(urlName);
 		} catch (Exception e) {
 			System.err.println("cards/" + img);
 			e.printStackTrace();
 			System.exit(1);
 		}
-		//String imgName = "../DeadwoodController/src/resources/cards/" + card.getAttribute("img");
-
-		//System.out.println(urlName);
 
 		Scene s = new Scene(name, desc, budget, num, urlName);
 		for_each(card.getElementsByTagName("part"),

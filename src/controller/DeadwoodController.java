@@ -1,6 +1,5 @@
 package controller;
 
-import model.*;
 import model.Die;
 import model.Player;
 import model.Room.Room;
@@ -8,7 +7,6 @@ import model.Room.Stage;
 import model.Room.Trailer;
 import model.Scene;
 import resources.XmlParser;
-import view.PlayerView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +37,7 @@ public class DeadwoodController implements ActionListener{
         this.rounds = 4;
         executor = Executors.newSingleThreadExecutor();
         listeners = new ArrayList<>();
+        order = new LinkedList<>();
 
         if (players < 4) {
             this.rounds = 3;
@@ -91,6 +90,8 @@ public class DeadwoodController implements ActionListener{
 
         Collections.shuffle(scenes);
 
+        System.out.println("size of scenes: " + scenes.size());
+
         die = new Die();
 
         newDay();
@@ -98,7 +99,7 @@ public class DeadwoodController implements ActionListener{
 
     public void play(int rounds) {
         for (int i = 0; i < rounds; i++) {
-            while (numWrapped() < 9) {
+                System.out.println("size of scenes: " + scenes.size());
                 cur = order.poll();
                 notifyListeners();
                 try {
@@ -109,10 +110,8 @@ public class DeadwoodController implements ActionListener{
                     e.printStackTrace();
                 }
                 notifyListeners();
-
                 order.offer(cur);
-            }
-            newDay();
+
         }
 
         System.out.println("Game ended! Point values:");
@@ -161,6 +160,12 @@ public class DeadwoodController implements ActionListener{
                 discard.push(scenes.pop());
             }
         }
+
+        if (order.size() > 0) {
+            for (Player p : order) {
+                p.newDay();
+            }
+        }
     }
 
     public int numWrapped() {
@@ -199,9 +204,9 @@ public class DeadwoodController implements ActionListener{
                 p.rehearse();
             } else if (firstWord.equalsIgnoreCase("act")) {
                 p.act(die.roll());
-            } else if (firstWord.equalsIgnoreCase("add")) {
-                p.addEarnings(Integer.parseInt(options));
             } else if (firstWord.equalsIgnoreCase("end")) {
+                if (numWrapped() > 8)
+                    newDay();
                 synchronized (ob) {
                     ob.notify();
                 }
@@ -215,21 +220,24 @@ public class DeadwoodController implements ActionListener{
 
     private void move(Player p, String input) {
         Room dest = null;
+        int i = 0;
 
-        for (int i = 0; i < board.size(); i++) {
+        while (i < board.size() && dest == null) {
             Room r = board.get(i);
             if (r.getName().equalsIgnoreCase(input)) {
                 dest = r;
-                break;
             }
+            i++;
         }
 
         if (dest == null) {
-            System.out.println("Could not find specfied Room " + input);
+            System.out.println("Could not find specified Room " + input);
         } else {
             if (p.move(dest))
                 System.out.println("Moved to " + input);
         }
+
+
     }
 
     private void upgrade(Player p, String input) {
@@ -237,7 +245,7 @@ public class DeadwoodController implements ActionListener{
         if (options.length < 2) {
             System.out.println("Could not parse upgrade request.");
         } else {
-            if (options[0].contains("$")) {
+            if (options[0].contains("dollar")) {
                 p.upgradeMoney(Integer.parseInt(options[1]));
             } else if (options[0].contains("cr")) {
                 p.upgradeCr(Integer.parseInt(options[1]));
@@ -261,7 +269,7 @@ public class DeadwoodController implements ActionListener{
 
 
     public void initPlayers(int players) {
-        order = new LinkedList<Player>();
+
         String[] names = {"blue", "cyan", "green", "orange", "pink", "red", "violet", "yellow"};
 
         char[] imgs = {'b', 'c', 'g', 'o', 'p', 'r', 'v', 'y'};
