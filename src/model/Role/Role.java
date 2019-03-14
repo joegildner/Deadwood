@@ -28,6 +28,7 @@ public abstract class Role implements Comparable<Role>{
 	}
 	
 	public boolean fill(Player p) {
+		System.out.println("current player: " + p);
 		
 		if (p.getRank() >= this.rank && this.player == null) {
 			this.player = p;

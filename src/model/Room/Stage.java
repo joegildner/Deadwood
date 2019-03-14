@@ -9,12 +9,14 @@ public class Stage extends Room {
 	
 	private ArrayList<Role> extras; 
 	private int takes;
+	private int totTakes;
 	private ArrayList<Take> takeArea;
 	private Scene scene;
 	
 	public Stage(String name) {
 		super(name);
 		this.takes = -1;
+		this.totTakes = -1;
 		this.scene = null;
 		this.takeArea = new ArrayList<>();
 		this.extras = new ArrayList<>();
@@ -22,6 +24,7 @@ public class Stage extends Room {
 
 	public Stage(String name, ArrayList<Room> connections, Scene scene, int takes, ArrayList<Role> extras) {
 		super(name, connections);
+		this.totTakes = takes;
 		this.takes = takes;
 		this.scene = scene;
 		this.extras = extras;
@@ -49,6 +52,8 @@ public class Stage extends Room {
 		for (Role r : this.extras) {
 			r.newDay();
 		}
+
+		this.takes = this.totTakes;
 	}
 	
 	@Override
@@ -89,6 +94,7 @@ public class Stage extends Room {
 	@Override
 	public void setTakes(int t) {
 		this.takes = t;
+		this.totTakes = t;
 	}
 
 	@Override
