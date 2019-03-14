@@ -26,12 +26,14 @@ public class MainView extends JLayeredPane implements DeadwoodController.DayList
     private ArrayList<SceneView> sceneViews;
     private ArrayList<PlayerView> pViews;
     private ArrayList<Room> rooms;
+    private DeadwoodController dwController;
 
 
-    public MainView(ArrayList<Room> rooms, Queue<Player> players) {
+    public MainView(ArrayList<Room> rooms, Queue<Player> players, DeadwoodController dwController) {
         super();
         setSize(1200,950);
 
+        this.dwController = dwController;
         this.rooms=rooms;
 
         board = new JLabel();
@@ -86,5 +88,8 @@ public class MainView extends JLayeredPane implements DeadwoodController.DayList
 
     public void changed(){
         initScenes();
+
+        for (SceneView sv: sceneViews)
+            dwController.addListener(sv);
     }
 }

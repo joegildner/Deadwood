@@ -29,7 +29,7 @@ public class PlayDeadwood {
         gameFrame = new JFrame("DeadwoodController: the Cheap*** Game of Acting Badly");
         gameFrame.setSize(1200, 950);
 
-        boardView = new MainView(dwControl.getBoard(), dwControl.getPlayers());
+        boardView = new MainView(dwControl.getBoard(), dwControl.getPlayers(), dwControl);
 
         initListeners();
 
