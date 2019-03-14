@@ -390,7 +390,7 @@
       <area x="53" y="47" h="40" w="40" />
       <line>Oh, sweet Lord!</line>
     </part>
-    <part name="Dog" level="6">
+    <part name="Dog" level="5">
       <area x="115" y="47" h="40" w="40" />
       <line>Wurf!</line>
     </part>
