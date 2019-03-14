@@ -57,7 +57,11 @@ public class MainView extends JLayeredPane {
 
     }
 
-    public ArrayList<PlayerView> getpViews() {
+    public ArrayList<PlayerView> getPViews() {
         return pViews;
+    }
+
+    public ArrayList<SceneView> getSViews() {
+        return sceneViews;
     }
 }

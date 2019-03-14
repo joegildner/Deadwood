@@ -47,6 +47,7 @@ public class PlayerView extends JLayeredPane implements DeadwoodController.Liste
             }
             paintInfoPanel();
         }
+        boardView.repaint();
     }
 
     public void paintRole(){

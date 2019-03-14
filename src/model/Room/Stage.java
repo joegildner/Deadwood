@@ -126,4 +126,11 @@ public class Stage extends Room {
 		
 	}
 
+	public ArrayList<Take> getTakeArea() {
+		return takeArea;
+	}
+
+	public int getTakes() {
+		return takes;
+	}
 }

@@ -42,9 +42,9 @@ public class BoardController {
                 trailer = new TrailerController((Trailer)thisRoom, boardView, dwModel);
         }
 
-        end = createButton(new int[]{1120, 900, 75, 50}, "End", boardView);
-        act = createButton(new int[]{1040,900,75,50}, "Act", boardView);
-        rehearse = createButton(new int[]{885,900,150,50}, "Rehearse", boardView);
+        end = createButton(new int[]{1120, 905, 75, 40}, "End", boardView);
+        act = createButton(new int[]{1040,905,75,40}, "Act", boardView);
+        rehearse = createButton(new int[]{885,905,150,40}, "Rehearse", boardView);
 
     }
 

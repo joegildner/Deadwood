@@ -2,6 +2,7 @@ import controller.BoardController;
 import controller.DeadwoodController;
 import view.MainView;
 import view.PlayerView;
+import view.SceneView;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -48,8 +49,11 @@ public class PlayDeadwood {
     }
 
     public static void initListeners(){
-        for(PlayerView pv : boardView.getpViews()){
+        for(PlayerView pv : boardView.getPViews()){
             dwControl.addListener(pv);
+        }
+        for(SceneView sv : boardView.getSViews()){
+            dwControl.addListener(sv);
         }
     }
 }
