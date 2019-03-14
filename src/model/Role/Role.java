@@ -57,6 +57,10 @@ public abstract class Role implements Comparable<Role>{
 	public String getName() {
 		return this.name;
 	}
+
+	public void newDay() {
+		this.player = null;
+	}
 	
 	@Override
 	public int compareTo(Role r) {

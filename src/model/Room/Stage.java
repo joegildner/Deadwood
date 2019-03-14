@@ -42,6 +42,14 @@ public class Stage extends Room {
 			}
 		}
 	}
+
+	@Override
+	public void newDay() {
+		super.newDay();
+		for (Role r : this.extras) {
+			r.newDay();
+		}
+	}
 	
 	@Override
 	public boolean take(int roll) {

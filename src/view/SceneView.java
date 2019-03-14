@@ -6,6 +6,7 @@ import model.Room.Stage;
 import model.Room.Take;
 
 import javax.swing.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Stack;
@@ -47,7 +48,19 @@ public class SceneView extends JLayeredPane implements DeadwoodController.Listen
         for(Take thisTake : stage.getTakeArea()){
             int[] takeArea = thisTake.getArea();
             JLabel takeLabel = new JLabel();
-            takeLabel.setIcon(new ImageIcon("/home/gildnej/Code/CSCI345/Deadwood/src/resources/shot.png"));
+
+            String filename = "";
+            Class cls = SceneView.class;
+            try {
+                URL u = cls.getResource("shot.png");
+                filename = u.getFile();
+            } catch (Exception e) {
+                System.err.println("shot.png");
+                e.printStackTrace();
+                System.exit(1);
+            }
+
+            takeLabel.setIcon(new ImageIcon(filename));
             takeLabel.setBounds(takeArea[0],takeArea[1],takeArea[2],takeArea[3]);
             takeLabel.setVisible(true);
             takes.push(takeLabel);
