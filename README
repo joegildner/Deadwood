@@ -3,5 +3,24 @@ Deadwood
 CSCI 347 Winter 2019
 Aran Clauson
 
-We worked on this project using peer programming. Melody was in charge of the model and resource handling,
-and Joe was in charge of the Controllers. We worked to together on the View.
+We worked on this project using peer programming. Melody was on point for the model and resource handling,
+and Joe was point for the Controllers and Views, with some variations. 
+
+To run:
+java PlayDeadwood [num players]
+
+
+To play:
+To move from room to room, you must click in the middle(ish) of the room name of the room you wish to go to. 
+To commit to a role, simply click on the role icon.
+To upgrade in the office, simpy click on the dollar/credit amount for the rank you wish to upgrade to.
+To act for a role, click the "Act" button in the lower left of the screen.
+To rehearse for a role, click the "Rehearse" button in the lower left of the screen.
+To end* your turn, click the "End" button in the lower left of the screen.
+
+
+
+*For testing purposes, we are trusting the final end-user to not do more actions on their 
+turn than allowed by the game rules. We did not want to have to run through an entire game
+the real way just to test if something worked, so we thought we should extend that benefit
+to you.
