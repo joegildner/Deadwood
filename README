@@ -18,6 +18,8 @@ To act for a role, click the "Act" button in the lower left of the screen.
 To rehearse for a role, click the "Rehearse" button in the lower left of the screen.
 To end* your turn, click the "End" button in the lower left of the screen.
 
+Ending the game exits out of the UI and prints the final scores to the command line.
+
 
 
 *For testing purposes, we are trusting the final end-user to not do more actions on their 
