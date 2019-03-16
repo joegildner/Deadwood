@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class PlayDeadwood {
+public class Deadwood {
     private static JFrame gameFrame;
     private static MainView boardView;
     private static DeadwoodController dwControl;

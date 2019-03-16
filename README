@@ -7,7 +7,7 @@ We worked on this project using peer programming. Melody was on point for the mo
 and Joe was point for the Controllers and Views, with some variations. 
 
 To run:
-java PlayDeadwood [num players]
+java Deadwood [num players]
 
 
 To play:
